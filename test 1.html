@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HRBRP | Training Assist</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+    <script>
+        const CONFIG = {
+            WEBHOOK_ANN: "https://discord.com/api/webhooks/1464977885629779990/D-mwGVTC23B7dsnZ70p5TFyV1mvLACJLKVmF9xJtsd2Othgg7VzwzMwOCFU8Wd_v6rni",
+            WEBHOOK_RES: "https://discord.com/api/webhooks/1464977885629779990/D-mwGVTC23B7dsnZ70p5TFyV1mvLACJLKVmF9xJtsd2Othgg7VzwzMwOCFU8Wd_v6rni",
+            ANNOUNCE_ROLE_ID: "1452651642850775082",
+            ACCESS_KEY: "Mersenoob",
+            LOGO_THUMB: "https://cdn.discordapp.com/attachments/1434075893868920852/1453697701366730802/hrbrp.png",
+            IMG_ANN: "https://cdn.discordapp.com/attachments/1434075893868920852/1453697838994296855/HRPBRP_Announcement.png",
+            IMG_RES: "https://cdn.discordapp.com/attachments/1434075893868920852/1453697757872394321/HRBRP___TER.png",
+            IMG_VV: "https://cdn.discordapp.com/attachments/1434075893868920852/1453697795138523268/HRBRP_VV_Results.png"
+        };
+    </script>
+    <style>
+        :root {
+            --bg: #05070a; --panel: rgba(16, 20, 35, 0.95);
+            --pink: #ff00ff; --blue: #00f2ff; --gold: #ffcc00;
+            --pass: #00ff88; --fail: #ff4444; --text: #ffffff;
+        }
+        body { font-family: 'Inter', sans-serif; background: radial-gradient(circle at top right, #1a0b2e, #05070a); color: var(--text); margin: 0; display: flex; flex-direction: column; align-items: center; min-height: 100vh; }
+        #login-screen { background: var(--panel); padding: 50px; border: 2px solid var(--pink); border-radius: 20px; text-align: center; margin-top: 100px; }
+        #dashboard { display: none; width: 95%; max-width: 1100px; background: var(--panel); backdrop-filter: blur(15px); border-radius: 24px; border: 1px solid rgba(255, 255, 255, 0.1); margin: 20px 0; }
+        .tabs { display: flex; background: rgba(0,0,0,0.4); }
+        .tab { flex: 1; padding: 20px; text-align: center; cursor: pointer; color: #666; font-weight: 800; text-transform: uppercase; }
+        .tab.active { color: var(--blue); border-bottom: 3px solid var(--blue); background: rgba(0, 242, 255, 0.05); }
+        .content { padding: 40px; display: none; }
+        .content.active { display: block; }
+        label { display: block; margin-top: 15px; color: var(--blue); font-size: 0.75rem; font-weight: 800; text-transform: uppercase; }
+        input, textarea, select { background: rgba(0,0,0,0.4); border: 1px solid var(--blue); color: white; padding: 12px; width: 100%; border-radius: 8px; margin-top: 5px; box-sizing: border-box; }
+        .eval-section { border: 1px solid rgba(255,255,255,0.1); padding: 15px; border-radius: 12px; margin-top: 20px; background: rgba(255,255,255,0.02); }
+        .eval-section h4 { margin-top: 0; color: var(--gold); border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 5px; }
+        .toggle-row { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-top: 10px; }
+        .t-btn { padding: 8px; cursor: pointer; border: 1px solid rgba(255,255,255,0.1); background: rgba(255,255,255,0.05); color: white; border-radius: 6px; font-weight: bold; font-size: 0.7rem; flex: 1; }
+        .t-btn.active-blue { background: var(--blue); color: #000; }
+        .t-btn.active-green { background: var(--pass); color: #000; }
+        .t-btn.active-red { background: var(--fail); color: #fff; }
+        .t-btn.active-gold { background: var(--gold); color: #000; }
+        .btn-grp { display: flex; gap: 5px; margin-top: 5px; }
+        .primary-btn { background: var(--blue); color: black; border: none; padding: 18px; width: 100%; border-radius: 12px; font-weight: 800; cursor: pointer; margin-top: 25px; text-transform: uppercase; }
+        .batch-card { background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.1); padding: 15px; border-radius: 12px; display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; }
+        .conditional-box { background: rgba(255, 68, 68, 0.05); padding: 10px; border-left: 3px solid var(--fail); margin-top: 10px; display: none; }
+        .dashboard-footer { padding: 15px; font-size: 0.75rem; color: rgba(255,255,255,0.4); text-align: center; border-top: 1px solid rgba(255,255,255,0.05); }
+    </style>
+</head>
+<body>
+
+    <div id="login-screen">
+        <h1 style="color: var(--gold); font-weight: 800;">HRBRP | Training Assist</h1>
+        <input type="password" id="pass-field" style="text-align:center" placeholder="ACCESS KEY">
+        <button onclick="unlock()" class="primary-btn">INITIALIZE</button>
+    </div>
+
+    <div id="dashboard">
+        <div class="tabs">
+            <div class="tab active" id="tab-ann" onclick="switchTab('ann')">Announcements</div>
+            <div class="tab" id="tab-res" onclick="switchTab('res')">Training Results</div>
+            <div class="tab" id="tab-voice" onclick="switchTab('voice')">Voice Verification</div>
+        </div>
+
+        <div id="ann-content" class="content active">
+            <h2>ANNOUNCEMENT SYSTEM</h2>
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
+                <div><label>Trainer Discord ID</label><input type="text" id="ann-uid"></div>
+                <div><label>Training Type</label><input type="text" id="ann-type" value="Normal Training"></div>
+            </div>
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
+                <div><label>Location</label><input type="text" id="ann-loc" value="Sheriff Briefing Room"></div>
+                <div><label>Start Date & Time</label><input type="datetime-local" id="ann-time"></div>
+            </div>
+            <label>Description/Sections</label>
+            <textarea id="ann-desc" rows="2">Knowledge Section, Mod Call Section and Driving Section. Tick if attending.</textarea>
+            <label>Additional Info</label>
+            <textarea id="ann-info" rows="2"></textarea>
+            <button onclick="postAnn()" class="primary-btn">ANNOUNCE</button>
+        </div>
+
+        <div id="res-content" class="content">
+            <h2>BATCH EVALUATOR</h2>
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; background: rgba(0,0,0,0.3); padding: 20px; border-radius: 15px;">
+                <div><label>Host Roblox</label><input type="text" id="h-rblx" oninput="saveHost()"></div>
+                <div><label>Host Discord ID</label><input type="text" id="h-id" oninput="saveHost()"></div>
+            </div>
+
+            <div style="margin-top: 30px; padding: 25px; border: 1px solid var(--pink); border-radius: 20px;">
+                <h3 style="color: var(--pink); margin-top: 0;">TRAINEE INPUT</h3>
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px;">
+                    <input type="text" id="t-rblx" placeholder="Roblox Username">
+                    <input type="text" id="t-id" placeholder="Discord User ID">
+                </div>
+
+                <div class="eval-section">
+                    <h4>1. KNOWLEDGE SECTION (10 Questions)</h4>
+                    <div id="knowledge-container" style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
+                        </div>
+                </div>
+
+                <div class="eval-section">
+                    <h4>2. DRIVING SECTION</h4>
+                    <div class="toggle-row">
+                        <div><label>Vehicle Control?</label><div class="btn-grp"><button class="t-btn" onclick="setTog('d1', 2.5, this)">Yes</button><button class="t-btn" onclick="setTog('d1', 0, this)">No</button></div></div>
+                        <div><label>Traffic Lights?</label><div class="btn-grp"><button class="t-btn" onclick="setTog('d2', 2.5, this)">Yes</button><button class="t-btn" onclick="setTog('d2', 0, this)">No</button></div></div>
+                        <div><label>Under Speed Limit?</label><div class="btn-grp"><button class="t-btn" onclick="setTog('d3', 2.5, this)">Yes</button><button class="t-btn" onclick="setTog('d3', 0, this)">No</button></div></div>
+                        <div><label>Traffic Rules (Lanes/Ind)?</label><div class="btn-grp"><button class="t-btn" onclick="setTog('d4', 2.5, this)">Yes</button><button class="t-btn" onclick="setTog('d4', 0, this)">No</button></div></div>
+                    </div>
+                </div>
+
+                <div class="eval-section">
+                    <h4>3. SCENE 1 - RDM</h4>
+                    <div class="toggle-row">
+                        <div><label>Did they heal?</label><div class="btn-grp"><button class="t-btn" onclick="setTog('s1_h', 2.5, this)">Yes</button><button class="t-btn" onclick="setTog('s1_h', 0, this)">No</button></div></div>
+                        <div><label>SPaG?</label><div class="btn-grp"><button class="t-btn" onclick="setTog('s1_s', 2.5, this)">Yes</button><button class="t-btn" onclick="setTog('s1_s', 0, this)">No</button></div></div>
+                        <div><label>Proper Proof?</label><div class="btn-grp"><button class="t-btn" onclick="setTog('s1_p', 2.5, this)">Yes</button><button class="t-btn" onclick="setTog('s1_p', 0, this)">No</button></div></div>
+                        <div>
+                            <label>Member Disrespect?</label>
+                            <div class="btn-grp">
+                                <button class="t-btn" onclick="setTog('s1_m', 2.5, this); hideCond('cond-staff')">Yes</button>
+                                <button class="t-btn" onclick="setTog('s1_m', 0, this); showCond('cond-staff')">No</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="cond-staff" class="conditional-box">
+                        <label>Punished for Staff Disrespect?</label>
+                        <div class="btn-grp">
+                            <button class="t-btn" onclick="setTog('s1_sd', 1.5, this); hideCond('cond-srdm')">Yes</button>
+                            <button class="t-btn" onclick="setTog('s1_sd', 0, this); showCond('cond-srdm')">No</button>
+                        </div>
+                    </div>
+                    <div id="cond-srdm" class="conditional-box">
+                        <label>Punished for SRDM?</label>
+                        <div class="btn-grp">
+                            <button class="t-btn" onclick="setTog('s1_sr', 0.5, this)">Yes</button>
+                            <button class="t-btn" onclick="setTog('s1_sr', 0, this)">No</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="eval-section">
+                    <h4>4. SCENE 2 - CUFF RUSH</h4>
+                    <div class="toggle-row">
+                        <div><label>SPaG?</label><div class="btn-grp"><button class="t-btn" onclick="setTog('s2_s', 2.5, this)">Yes</button><button class="t-btn" onclick="setTog('s2_s', 0, this)">No</button></div></div>
+                        <div><label>Punished Properly?</label><div class="btn-grp"><button class="t-btn" onclick="setTog('s2_p', 2.5, this)">Yes</button><button class="t-btn" onclick="setTog('s2_p', 0, this)">No</button></div></div>
+                    </div>
+                    <label>Where to send proof?</label>
+                    <div class="btn-grp">
+                        <button class="t-btn" onclick="setTog('s2_g', 5, this)">Yes</button>
+                        <button class="t-btn" onclick="setTog('s2_g', 2.5, this)">Yes but struggled</button>
+                        <button class="t-btn" onclick="setTog('s2_g', 0, this)">No</button>
+                    </div>
+                </div>
+
+                <label>Overall Trainer Notes</label>
+                <textarea id="t-notes" placeholder="Notes on performance..."></textarea>
+                
+                <button onclick="addTrainee()" class="primary-btn" style="background: var(--pass)">ADD TO BATCH</button>
+            </div>
+
+            <div id="batch-list" style="margin-top: 20px;"></div>
+            <button id="publish-btn" onclick="publish()" class="primary-btn" style="background: var(--pink); color: white; display: none;">PUBLISH RESULTS</button>
+        </div>
+
+        <div id="voice-content" class="content">
+            <h2>VOICE VERIFICATION UNIT</h2>
+            <label>Trainer/Host Discord ID</label>
+            <input type="text" id="v-trainer-uid">
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-top: 15px;">
+                <div><label>Trainee Discord ID</label><input type="text" id="v-trainee-uid"></div>
+                <div><label>Trainee Username</label><input type="text" id="v-trainee-name"></div>
+            </div>
+            <label>Age Group</label>
+            <select id="v-age">
+                <option value="Under 13">Under 13</option>
+                <option value="13-15">13-15</option>
+                <option value="15-17">15-17</option>
+                <option value="18+">18+</option>
+            </select>
+            <button onclick="postVoiceVerify()" class="primary-btn" style="background: var(--gold); color: black;">SUBMIT VERIFICATION</button>
+        </div>
+
+        <div class="dashboard-footer">
+            Still in development phase to report bugs, contact <a href="https://discord.com/users/hgb_bharat" target="_blank">@hgb_bharat 🌐</a>
+        </div>
+    </div>
+
+    <script>
+        let batch = [];
+        let scores = {};
+
+        // Generate Knowledge Questions
+        const kDiv = document.getElementById('knowledge-container');
+        for(let i=1; i<=10; i++) {
+            kDiv.innerHTML += `
+                <div>
+                    <label>Q${i}</label>
+                    <div class="btn-grp">
+                        <button class="t-btn" onclick="setTog('k${i}', 1, this)">Good</button>
+                        <button class="t-btn" onclick="setTog('k${i}', 0.5, this)">Okay</button>
+                        <button class="t-btn" onclick="setTog('k${i}', 0, this)">Bad</button>
+                    </div>
+                </div>
+            `;
+        }
+
+        function unlock() {
+            if(document.getElementById('pass-field').value === CONFIG.ACCESS_KEY) {
+                document.getElementById('login-screen').style.display = 'none';
+                document.getElementById('dashboard').style.display = 'block';
+                loadHost();
+            } else { alert("ACCESS DENIED"); }
+        }
+
+        function saveHost() {
+            localStorage.setItem('hr_host_rblx', document.getElementById('h-rblx').value);
+            localStorage.setItem('hr_host_id', document.getElementById('h-id').value);
+        }
+
+        function loadHost() {
+            document.getElementById('h-rblx').value = localStorage.getItem('hr_host_rblx') || "";
+            document.getElementById('h-id').value = localStorage.getItem('hr_host_id') || "";
+        }
+
+        function switchTab(t) {
+            document.querySelectorAll('.content').forEach(c => c.classList.remove('active'));
+            document.querySelectorAll('.tab').forEach(tab => tab.classList.remove('active'));
+            document.getElementById(t + '-content').classList.add('active');
+            document.getElementById('tab-' + t).classList.add('active');
+        }
+
+        function setTog(key, val, btn) {
+            scores[key] = val;
+            const parent = btn.parentElement;
+            parent.querySelectorAll('.t-btn').forEach(b => b.className = 't-btn');
+            if(val > 0) btn.className = 't-btn active-green';
+            else btn.className = 't-btn active-red';
+        }
+
+        function showCond(id) { document.getElementById(id).style.display = 'block'; }
+        function hideCond(id) { 
+            document.getElementById(id).style.display = 'none'; 
+            // Reset scores of children if hidden
+            if(id === 'cond-staff') { scores['s1_sd'] = 0; hideCond('cond-srdm'); }
+            if(id === 'cond-srdm') scores['s1_sr'] = 0;
+        }
+
+        function addTrainee() {
+            const rblx = document.getElementById('t-rblx').value;
+            const tid = document.getElementById('t-id').value;
+            if(!rblx || !tid) return alert("Missing Trainee Info.");
+
+            let total = 0;
+            Object.values(scores).forEach(v => total += v);
+
+            batch.push({
+                rblx, id: tid, 
+                score: total.toFixed(1), 
+                status: total >= 21 ? "PASS" : "FAIL",
+                notes: document.getElementById('t-notes').value || "N/A"
+            });
+            renderBatch(); clearForm();
+        }
+
+        function renderBatch() {
+            const out = document.getElementById('batch-list');
+            out.innerHTML = batch.length ? "<h3>CURRENT BATCH</h3>" : "";
+            batch.forEach((t, i) => {
+                out.innerHTML += `<div class="batch-card">
+                    <div><strong>${t.rblx}</strong> - ${t.score}/30 (${t.status})</div>
+                    <button class="t-btn active-red" style="width:auto" onclick="batch.splice(${i},1);renderBatch()">Remove</button>
+                </div>`;
+            });
+            document.getElementById('publish-btn').style.display = batch.length ? 'block' : 'none';
+        }
+
+        function clearForm() {
+            ['t-rblx', 't-id', 't-notes'].forEach(id => document.getElementById(id).value = "");
+            scores = {};
+            document.querySelectorAll('.t-btn').forEach(b => b.className = 't-btn');
+            document.querySelectorAll('.conditional-box').forEach(b => b.style.display = 'none');
+        }
+
+        async function postAnn() {
+            const uid = document.getElementById('ann-uid').value;
+            const unix = Math.floor(new Date(document.getElementById('ann-time').value).getTime() / 1000);
+            const body = {
+                content: `<@${uid}> <@&${CONFIG.ANNOUNCE_ROLE_ID}>`,
+                embeds: [{
+                    title: "New Training Announced!", color: 16711935,
+                    thumbnail: { url: CONFIG.LOGO_THUMB },
+                    image: { url: CONFIG.IMG_ANN },
+                    fields: [
+                        { name: "Type:", value: document.getElementById('ann-type').value },
+                        { name: "Time", value: `<t:${unix}:F>` },
+                        { name: "Location", value: document.getElementById('ann-loc').value },
+                        { name: "Notes", value: document.getElementById('ann-desc').value }
+                    ]
+                }]
+            };
+            await fetch(CONFIG.WEBHOOK_ANN, { method: 'POST', headers: {'Content-Type': 'application/json'}, body: JSON.stringify(body) });
+            alert("Broadcast sent.");
+        }
+
+        async function postVoiceVerify() {
+            const tID = document.getElementById('v-trainer-uid').value;
+            const trID = document.getElementById('v-trainee-uid').value;
+            const age = document.getElementById('v-age').value;
+            const isPass = age !== "Under 13";
+            const body = {
+                content: `<@${trID}> <@${tID}>`,
+                embeds: [{
+                    title: "VOICE VERIFICATION RESULTS", color: isPass ? 65280 : 16711680,
+                    thumbnail: { url: CONFIG.LOGO_THUMB },
+                    image: { url: CONFIG.IMG_VV },
+                    fields: [
+                        { name: "User :", value: `**${document.getElementById('v-trainee-name').value}**` },
+                        { name: "Host :", value: `<@${tID}>` },
+                        { name: "Age Group :", value: `**${age}**` },
+                        { name: "Results :", value: isPass ? "✅ **PASS**" : "❌ **FAIL (UNDERAGE)**" }
+                    ]
+                }]
+            };
+            await fetch(CONFIG.WEBHOOK_RES, { method: 'POST', headers: {'Content-Type': 'application/json'}, body: JSON.stringify(body) });
+            alert("Verification Sent.");
+        }
+
+        async function publish() {
+            if(!confirm("Publish all results to Discord?")) return;
+            const hId = document.getElementById('h-id').value;
+            let pings = `<@${hId}> `;
+            batch.forEach(t => pings += `<@${t.id}> `);
+            const embeds = batch.map((t, index) => {
+                const embed = {
+                    title: `TRAINING EVALUATION: ${t.status}`, color: t.status === "PASS" ? 65280 : 16711680,
+                    thumbnail: { url: CONFIG.LOGO_THUMB },
+                    fields: [
+                        { name: "Host", value: document.getElementById('h-rblx').value + ` (<@${hId}>)`, inline: true },
+                        { name: "Candidate", value: t.rblx + ` (<@${t.id}>)`, inline: true },
+                        { name: "Final Score", value: `**${t.score}/30**`, inline: true },
+                        { name: "Trainer Remarks", value: t.notes }
+                    ]
+                };
+                if (index === batch.length - 1) embed.image = { url: CONFIG.IMG_RES };
+                return embed;
+            });
+            await fetch(CONFIG.WEBHOOK_RES, { method: 'POST', headers: {'Content-Type': 'application/json'}, body: JSON.stringify({ content: pings, embeds }) });
+            alert("Published Successfully."); batch = []; renderBatch();
+        }
+    </script>
+</body>
+</html>
