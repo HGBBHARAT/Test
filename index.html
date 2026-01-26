@@ -138,9 +138,8 @@
                 <label>Overall Summary</label>
                 <textarea id="t-notes" placeholder="Final comments on overall performance..."></textarea>
                 
-                <div style="display: grid; grid-template-columns: 2fr 1fr; gap: 10px; margin-top: 20px;">
+                <div style="margin-top: 20px;">
                     <button onclick="addTrainee()" class="primary-btn" style="background: var(--pass); margin-top: 0;">ADD TO BATCH</button>
-                    <button onclick="dqTrainee()" class="primary-btn" style="background: var(--fail); color: white; margin-top: 0;">DISQUALIFY</button>
                 </div>
             </div>
 
@@ -202,7 +201,8 @@
             ['d1', 'd2', 'd3', 'd4'].forEach(k => dScore += scores[k] || 0);
 
             const total = kScore + s1Score + s2Score + dScore;
-            const pass = total >= 29 ? "PASS" : "FAIL";
+            // UPDATE: Passing score set to 30/40
+            const pass = total >= 30 ? "PASS" : "FAIL";
 
             batch.push({ 
                 rblx, id: tid, total: total.toFixed(1), status: pass,
@@ -218,31 +218,52 @@
             renderBatch(); clearForm();
         }
 
-        async function dqTrainee() {
-            const rblx = document.getElementById('t-rblx').value;
-            const tid = document.getElementById('t-id').value;
+        async function dqTrainee(index) {
+            const trainee = batch[index];
             const hId = document.getElementById('h-id').value;
-            if(!rblx || !tid || !hId) return alert("Ensure all IDs are filled.");
-            const reason = prompt("Disqualification Reason:");
+            const hRblx = document.getElementById('h-rblx').value;
+            
+            if(!hId) return alert("Host Discord ID is required to process DQ.");
+            
+            const reason = prompt(`Disqualification Reason for ${trainee.rblx}:`);
             if(!reason) return;
 
             const body = { 
-                content: `<@${hId}> <@${tid}>`, 
+                content: `<@${hId}> <@${trainee.id}>`, 
                 embeds: [{ 
                     title: "TRAINEE DISQUALIFIED", color: 16711680, 
                     thumbnail: { url: CONFIG.THUMBNAIL },
-                    fields: [{name:"Trainee", value:rblx, inline:true}, {name:"Trainer", value:document.getElementById('h-rblx').value, inline:true}, {name:"Reason", value:reason}] 
+                    fields: [
+                        {name:"Trainee", value:trainee.rblx, inline:true}, 
+                        {name:"Trainer", value: hRblx || "Unknown", inline:true}, 
+                        {name:"Reason", value:reason}
+                    ] 
                 }] 
             };
+            
             await fetch(CONFIG.WEBHOOK, { method: 'POST', headers: {'Content-Type': 'application/json'}, body: JSON.stringify(body) });
-            batch.push({ rblx, id: tid, total: "0", status: "DISQUALIFIED", sec: {k:0,s1:0,s2:0,d:0}, notes: {ov: "DQ: " + reason} });
-            renderBatch(); clearForm();
+            
+            // Update the trainee status in the batch instead of creating a new entry
+            batch[index].status = "DISQUALIFIED";
+            batch[index].total = "0.0";
+            batch[index].notes.ov = "DQ: " + reason;
+            renderBatch();
+            alert(`${trainee.rblx} has been disqualified.`);
         }
 
         function renderBatch() {
             const list = document.getElementById('batch-list');
             list.innerHTML = batch.length ? "<h3>CURRENT BATCH</h3>" : "";
-            batch.forEach((t, i) => list.innerHTML += `<div class="batch-card"><div><strong>${t.rblx}</strong> - ${t.total}/30 (${t.status})</div><button class="t-btn active-red" style="width:auto" onclick="batch.splice(${i},1);renderBatch()">REMOVE</button></div>`);
+            batch.forEach((t, i) => {
+                list.innerHTML += `
+                <div class="batch-card">
+                    <div><strong>${t.rblx}</strong> - ${t.total}/40 (${t.status})</div>
+                    <div style="display:flex; gap:5px;">
+                        <button class="t-btn active-red" style="width:auto; background: var(--fail);" onclick="dqTrainee(${i})">DQ</button>
+                        <button class="t-btn active-red" style="width:auto" onclick="batch.splice(${i},1);renderBatch()">REMOVE</button>
+                    </div>
+                </div>`;
+            });
             document.getElementById('publish-btn').style.display = batch.length ? 'block' : 'none';
         }
 
