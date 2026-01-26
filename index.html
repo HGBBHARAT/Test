@@ -253,14 +253,15 @@
             document.querySelectorAll('.conditional-box').forEach(b => b.style.display = 'none'); 
         }
 
-        async function postAnn() {
+        sync function postAnn() {
             const time = document.getElementById('ann-time').value;
             const hId = document.getElementById('ann-uid').value;
             if(!time || !hId) return alert("Time and Trainer ID required.");
             const unix = Math.floor(new Date(time).getTime() / 1000);
 
+            // Added <@${hId}> to the content string to ping the trainer
             const body = { 
-                content: `<@&${CONFIG.ANNOUNCE_ROLE_ID}>`, 
+                content: `<@&${CONFIG.ANNOUNCE_ROLE_ID}> <@${hId}>`, 
                 embeds: [{ 
                     title: "NEW TRAINING SESSION", color: 16711935, 
                     thumbnail: { url: CONFIG.THUMBNAIL },
@@ -275,6 +276,9 @@
                     footer: { text: "Ensure you meet all requirements before joining." }
                 }] 
             };
+            await fetch(CONFIG.WEBHOOK, { method: 'POST', headers: {'Content-Type': 'application/json'}, body: JSON.stringify(body) });
+            alert("Announcement Posted.");
+        }
             await fetch(CONFIG.WEBHOOK, { method: 'POST', headers: {'Content-Type': 'application/json'}, body: JSON.stringify(body) });
             alert("Announcement Posted.");
         }
@@ -332,3 +336,4 @@
     </script>
 </body>
 </html>
+
