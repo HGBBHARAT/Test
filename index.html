@@ -39,7 +39,9 @@
         .t-btn { padding: 8px; cursor: pointer; border: 1px solid rgba(255,255,255,0.1); background: rgba(255,255,255,0.05); color: white; border-radius: 6px; font-weight: bold; font-size: 0.7rem; flex: 1; }
         .t-btn.active-green { background: var(--pass); color: #000; }
         .t-btn.active-red { background: var(--fail); color: #fff; }
+        .t-btn.active-okay { background: var(--okay); color: #000; }
         .primary-btn { background: var(--blue); color: black; border: none; padding: 18px; width: 100%; border-radius: 12px; font-weight: 800; cursor: pointer; margin-top: 25px; text-transform: uppercase; }
+        .conditional-box { background: rgba(255, 68, 68, 0.05); padding: 10px; border-left: 3px solid var(--fail); margin-top: 10px; display: none; }
         .batch-card { background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.1); padding: 15px; border-radius: 12px; display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; }
         .section-note { height: 60px; font-size: 0.8rem; margin-top: 10px; border: 1px dashed rgba(0, 242, 255, 0.3); }
     </style>
@@ -54,9 +56,9 @@
 
     <div id="dashboard">
         <div class="tabs">
-            <div class="tab active" onclick="switchTab('ann')">Announcements</div>
-            <div class="tab" onclick="switchTab('res')">Results</div>
-            <div class="tab" onclick="switchTab('voice')">Voice Verify</div>
+            <div class="tab active" id="tab-ann" onclick="switchTab('ann')">Announcements</div>
+            <div class="tab" id="tab-res" onclick="switchTab('res')">Training Results</div>
+            <div class="tab" id="tab-voice" onclick="switchTab('voice')">Voice Verification</div>
         </div>
 
         <div id="ann-content" class="content active">
@@ -67,140 +69,265 @@
             </div>
             <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
                 <div><label>Location</label><input type="text" id="ann-loc" value="Sheriff Briefing Room"></div>
-                <div><label>Start Time (Required)*</label><input type="datetime-local" id="ann-time"></div>
+                <div><label>Start Date & Time (Required)*</label><input type="datetime-local" id="ann-time"></div>
             </div>
-            <label>Instructions</label>
-            <textarea id="ann-desc" rows="4">All attendees must be in the Briefing Room 5 mins prior.</textarea>
-            <button onclick="postAnn()" class="primary-btn">POST ANNOUNCEMENT</button>
+            <label>Specific Instructions</label>
+            <textarea id="ann-desc" rows="4">Professionalism and strict adherence to SPaG (Spelling, Punctuation, and Grammar) are mandatory throughout the entirety of this session.</textarea>
+            <button onclick="postAnn()" class="primary-btn">POST TO DISCORD</button>
         </div>
 
         <div id="res-content" class="content">
-            <h2>BATCH EVALUATOR (40 MARKS)</h2>
+            <h2>BATCH EVALUATOR</h2>
             <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; background: rgba(0,0,0,0.3); padding: 20px; border-radius: 15px;">
-                <div><label>Host Roblox</label><input type="text" id="h-rblx" oninput="saveHost()"></div>
+                <div><label>Host Roblox Username</label><input type="text" id="h-rblx" oninput="saveHost()"></div>
                 <div><label>Host Discord ID</label><input type="text" id="h-id" oninput="saveHost()"></div>
             </div>
 
             <div style="margin-top: 30px; padding: 25px; border: 1px solid var(--pink); border-radius: 20px;">
-                <h3 style="color: var(--pink);">TRAINEE INPUT</h3>
+                <h3 style="color: var(--pink); margin-top: 0;">TRAINEE INPUT</h3>
                 <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px;">
                     <input type="text" id="t-rblx" placeholder="Roblox Username">
                     <input type="text" id="t-id" placeholder="Discord User ID">
                 </div>
 
                 <div class="eval-section">
-                    <h4>KNOWLEDGE SECTION (20 MARKS)</h4>
-                    <div id="k-cont" style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;"></div>
-                    <textarea id="note-k" class="section-note" placeholder="Knowledge Notes (Optional)"></textarea>
+                    <h4>1. KNOWLEDGE (10 MARKS)</h4>
+                    <div id="knowledge-container" style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;"></div>
+                    <textarea id="note-know" class="section-note" placeholder="Knowledge Section Feedback (Optional)"></textarea>
                 </div>
 
                 <div class="eval-section">
-                    <h4>MOD-CALL/DRIVING (20 MARKS)</h4>
+                    <h4>2. SCENE 1 - RDM (10 MARKS)</h4>
                     <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px;">
-                        <div><label>Mod Call Protocol</label><div class="btn-grp"><button class="t-btn" onclick="setTog('m1', 5, this)">Pass</button><button class="t-btn" onclick="setTog('m1', 0, this)">Fail</button></div></div>
-                        <div><label>SPaG</label><div class="btn-grp"><button class="t-btn" onclick="setTog('m2', 5, this)">Pass</button><button class="t-btn" onclick="setTog('m2', 0, this)">Fail</button></div></div>
-                        <div><label>Vehicle Control</label><div class="btn-grp"><button class="t-btn" onclick="setTog('m3', 5, this)">Pass</button><button class="t-btn" onclick="setTog('m3', 0, this)">Fail</button></div></div>
-                        <div><label>Road Safety</label><div class="btn-grp"><button class="t-btn" onclick="setTog('m4', 5, this)">Pass</button><button class="t-btn" onclick="setTog('m4', 0, this)">Fail</button></div></div>
+                        <div><label>Healed?</label><div class="btn-grp"><button class="t-btn" onclick="setTog('s1_h', 2.5, this)">Yes</button><button class="t-btn" onclick="setTog('s1_h', 0, this)">No</button></div></div>
+                        <div><label>SPaG?</label><div class="btn-grp"><button class="t-btn" onclick="setTog('s1_s', 2.5, this)">Yes</button><button class="t-btn" onclick="setTog('s1_s', 0, this)">No</button></div></div>
+                        <div><label>Proof Checked?</label><div class="btn-grp"><button class="t-btn" onclick="setTog('s1_p', 2.5, this)">Yes</button><button class="t-btn" onclick="setTog('s1_p', 0, this)">No</button></div></div>
+                        <div><label>Disrespect Found?</label><div class="btn-grp"><button class="t-btn" onclick="setTog('s1_m', 2.5, this, 'staff')">Yes</button><button class="t-btn" onclick="setTog('s1_m', 0, this, 'staff')">No</button></div></div>
                     </div>
-                    <textarea id="note-m" class="section-note" placeholder="Mod-Call/Driving Notes (Optional)"></textarea>
+                    <div id="cond-staff" class="conditional-box"><label>Staff Disrespect?</label><div class="btn-grp"><button class="t-btn" onclick="setTog('s1_sd', 1.5, this, 'srdm')">Yes</button><button class="t-btn" onclick="setTog('s1_sd', 0, this, 'srdm')">No</button></div></div>
+                    <div id="cond-srdm" class="conditional-box"><label>SRDM Case?</label><div class="btn-grp"><button class="t-btn" onclick="setTog('s1_sr', 0.5, this)">Yes</button><button class="t-btn" onclick="setTog('s1_sr', 0, this)">No</button></div></div>
+                    <textarea id="note-s1" class="section-note" placeholder="Scene 1 Feedback (Optional)"></textarea>
                 </div>
 
-                <label>Overall Comments</label>
-                <textarea id="note-ov" placeholder="Final summary..."></textarea>
+                <div class="eval-section">
+                    <h4>3. SCENE 2 - CUFF RUSH (10 MARKS)</h4>
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px;">
+                        <div><label>SPaG?</label><div class="btn-grp"><button class="t-btn" onclick="setTog('s2_s', 2.5, this)">Yes</button><button class="t-btn" onclick="setTog('s2_s', 0, this)">No</button></div></div>
+                        <div><label>Correct Punishment?</label><div class="btn-grp"><button class="t-btn" onclick="setTog('s2_p', 2.5, this)">Yes</button><button class="t-btn" onclick="setTog('s2_p', 0, this)">No</button></div></div>
+                    </div>
+                    <label>Proof Guidance?</label>
+                    <div class="btn-grp">
+                        <button class="t-btn" onclick="setTog('s2_g', 5, this)">Fluent</button>
+                        <button class="t-btn" onclick="setMidTog('s2_g', 2.5, this)">Struggled</button>
+                        <button class="t-btn" onclick="setTog('s2_g', 0, this)">Failed</button>
+                    </div>
+                    <textarea id="note-s2" class="section-note" placeholder="Scene 2 Feedback (Optional)"></textarea>
+                </div>
+
+                <div class="eval-section">
+                    <h4>4. DRIVING (10 MARKS)</h4>
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px;">
+                        <div><label>Vehicle Control</label><div class="btn-grp"><button class="t-btn" onclick="setTog('d1', 2.5, this)">Yes</button><button class="t-btn" onclick="setTog('d1', 0, this)">No</button></div></div>
+                        <div><label>Code 3 Protocol</label><div class="btn-grp"><button class="t-btn" onclick="setTog('d2', 2.5, this)">Yes</button><button class="t-btn" onclick="setTog('d2', 0, this)">No</button></div></div>
+                        <div><label>Speed Management</label><div class="btn-grp"><button class="t-btn" onclick="setTog('d3', 2.5, this)">Yes</button><button class="t-btn" onclick="setTog('d3', 0, this)">No</button></div></div>
+                        <div><label>Road Safety</label><div class="btn-grp"><button class="t-btn" onclick="setTog('d4', 2.5, this)">Yes</button><button class="t-btn" onclick="setTog('d4', 0, this)">No</button></div></div>
+                    </div>
+                    <textarea id="note-drive" class="section-note" placeholder="Driving Feedback (Optional)"></textarea>
+                </div>
+
+                <label>Overall Summary</label>
+                <textarea id="t-notes" placeholder="Final comments on overall performance..."></textarea>
                 
                 <div style="display: grid; grid-template-columns: 2fr 1fr; gap: 10px; margin-top: 20px;">
-                    <button onclick="addTrainee()" class="primary-btn" style="background: var(--pass); margin-top:0;">ADD TO BATCH</button>
-                    <button onclick="dqTrainee()" class="primary-btn" style="background: var(--fail); color:white; margin-top:0;">DQ</button>
+                    <button onclick="addTrainee()" class="primary-btn" style="background: var(--pass); margin-top: 0;">ADD TO BATCH</button>
+                    <button onclick="dqTrainee()" class="primary-btn" style="background: var(--fail); color: white; margin-top: 0;">DISQUALIFY</button>
                 </div>
             </div>
+
             <div id="batch-list" style="margin-top: 20px;"></div>
-            <button id="pub-btn" onclick="publish()" class="primary-btn" style="background: var(--pink); display:none;">PUBLISH ALL</button>
+            <button id="publish-btn" onclick="publish()" class="primary-btn" style="background: var(--pink); color: white; display: none;">PUBLISH ALL RESULTS</button>
         </div>
 
         <div id="voice-content" class="content">
             <h2>VOICE VERIFICATION</h2>
             <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
-                <div><label>Trainer ID</label><input type="text" id="v-tr-id"></div>
-                <div><label>Trainee ID</label><input type="text" id="v-tn-id"></div>
+                <div><label>Trainer Discord ID</label><input type="text" id="v-trainer-uid"></div>
+                <div><label>Trainee Discord ID</label><input type="text" id="v-trainee-uid"></div>
             </div>
-            <label>Roblox Name</label><input type="text" id="v-name">
-            <label>Age Group</label>
-            <select id="v-age"><option>Under 13</option><option>13-15</option><option>15-17</option><option>18+</option></select>
-            <button onclick="postVoiceVerify()" class="primary-btn" style="background: var(--gold); color:black;">SUBMIT VERIFY</button>
+            <label>Trainee Roblox Username</label><input type="text" id="v-trainee-name">
+            <label>Age Category</label>
+            <select id="v-age"><option value="Under 13">Under 13</option><option value="13-15">13-15</option><option value="15-17">15-17</option><option value="18+">18+</option></select>
+            <button onclick="postVoiceVerify()" class="primary-btn" style="background: var(--gold); color: black;">SUBMIT VERIFICATION</button>
         </div>
     </div>
 
     <script>
-        let batch = [], scores = {};
-        const kCont = document.getElementById('k-cont');
-        // Questions are 2 points each = 20 total
-        for(let i=1; i<=10; i++) kCont.innerHTML += `<div><label>Q${i}</label><div class="btn-grp"><button class="t-btn" onclick="setTog('k${i}',2,this)">✓</button><button class="t-btn" onclick="setTog('k${i}',0,this)">✗</button></div></div>`;
+        let batch = [];
+        let scores = {};
 
-        function unlock() { if(document.getElementById('pass-field').value === CONFIG.ACCESS_KEY) { document.getElementById('login-screen').style.display='none'; document.getElementById('dashboard').style.display='block'; loadHost(); } else alert("Access Denied"); }
-        function saveHost() { localStorage.setItem('hr_rblx', document.getElementById('h-rblx').value); localStorage.setItem('hr_id', document.getElementById('h-id').value); }
-        function loadHost() { document.getElementById('h-rblx').value = localStorage.getItem('hr_rblx')||""; document.getElementById('h-id').value = localStorage.getItem('hr_id')||""; }
-        function switchTab(t) { document.querySelectorAll('.content').forEach(c=>c.classList.remove('active')); document.getElementById(t+'-content').classList.add('active'); }
-        
-        function setTog(k, v, b) { 
-            scores[k] = v; 
-            b.parentElement.querySelectorAll('.t-btn').forEach(x=>x.className='t-btn');
-            b.className = v > 0 ? 't-btn active-green' : 't-btn active-red';
+        // Generate Knowledge Section Inputs
+        const kDiv = document.getElementById('knowledge-container');
+        for(let i=1; i<=10; i++) {
+            kDiv.innerHTML += `<div><label>Q${i}</label><div class="btn-grp"><button class="t-btn" onclick="setTog('k${i}',1,this)">Good</button><button class="t-btn" onclick="setMidTog('k${i}',0.5,this)">Okay</button><button class="t-btn" onclick="setTog('k${i}',0,this)">Bad</button></div></div>`;
+        }
+
+        function unlock() { if(document.getElementById('pass-field').value === CONFIG.ACCESS_KEY) { document.getElementById('login-screen').style.display='none'; document.getElementById('dashboard').style.display='block'; loadHost(); } else alert("Access Denied."); }
+        function saveHost() { localStorage.setItem('hr_host_rblx', document.getElementById('h-rblx').value); localStorage.setItem('hr_host_id', document.getElementById('h-id').value); }
+        function loadHost() { document.getElementById('h-rblx').value = localStorage.getItem('hr_host_rblx') || ""; document.getElementById('h-id').value = localStorage.getItem('hr_host_id') || ""; }
+        function switchTab(t) { document.querySelectorAll('.content').forEach(c=>c.classList.remove('active')); document.querySelectorAll('.tab').forEach(tab=>tab.classList.remove('active')); document.getElementById(t+'-content').classList.add('active'); document.getElementById('tab-'+t).classList.add('active'); }
+
+        function setTog(key, val, btn, cond) {
+            scores[key] = val;
+            btn.parentElement.querySelectorAll('.t-btn').forEach(b => b.className = 't-btn');
+            btn.className = val > 0 ? 't-btn active-green' : 't-btn active-red';
+            if(cond === 'staff') document.getElementById('cond-staff').style.display = val === 0 ? 'block' : 'none';
+            if(cond === 'srdm') document.getElementById('cond-srdm').style.display = val === 0 ? 'block' : 'none';
+        }
+
+        function setMidTog(key, val, btn) {
+            scores[key] = val;
+            btn.parentElement.querySelectorAll('.t-btn').forEach(b => b.className = 't-btn');
+            btn.className = 't-btn active-okay';
         }
 
         function addTrainee() {
-            const rblx = document.getElementById('t-rblx').value, tid = document.getElementById('t-id').value;
-            if(!rblx || !tid) return alert("Fill fields");
-            let kS = 0, mS = 0;
-            for(let i=1; i<=10; i++) kS += scores['k'+i]||0;
-            ['m1','m2','m3','m4'].forEach(k => mS += scores[k]||0);
-            const total = kS + mS;
-            batch.push({ rblx, id: tid, score: total, status: total >= 30 ? "PASS" : "FAIL", kS, mS, notes: { k: document.getElementById('note-k').value, m: document.getElementById('note-m').value, ov: document.getElementById('note-ov').value } });
+            const rblx = document.getElementById('t-rblx').value;
+            const tid = document.getElementById('t-id').value;
+            if(!rblx || !tid) return alert("Fill in Trainee details.");
+
+            let kScore = 0, s1Score = 0, s2Score = 0, dScore = 0;
+            for(let i=1; i<=10; i++) kScore += scores['k'+i] || 0;
+            ['s1_h', 's1_s', 's1_p', 's1_m', 's1_sd', 's1_sr'].forEach(k => s1Score += scores[k] || 0);
+            ['s2_s', 's2_p', 's2_g'].forEach(k => s2Score += scores[k] || 0);
+            ['d1', 'd2', 'd3', 'd4'].forEach(k => dScore += scores[k] || 0);
+
+            const total = kScore + s1Score + s2Score + dScore;
+            const pass = total >= 29 ? "PASS" : "FAIL";
+
+            batch.push({ 
+                rblx, id: tid, total: total.toFixed(1), status: pass,
+                sec: { k: kScore.toFixed(1), s1: s1Score.toFixed(1), s2: s2Score.toFixed(1), d: dScore.toFixed(1) },
+                notes: {
+                    k: document.getElementById('note-know').value.trim(),
+                    s1: document.getElementById('note-s1').value.trim(),
+                    s2: document.getElementById('note-s2').value.trim(),
+                    d: document.getElementById('note-drive').value.trim(),
+                    ov: document.getElementById('t-notes').value.trim()
+                }
+            });
             renderBatch(); clearForm();
         }
 
         async function dqTrainee() {
-            const rblx = document.getElementById('t-rblx').value, tid = document.getElementById('t-id').value, hId = document.getElementById('h-id').value;
-            const r = prompt("DQ Reason:"); if(!r) return;
-            await fetch(CONFIG.WEBHOOK, { method: 'POST', headers: {'Content-Type': 'application/json'}, body: JSON.stringify({ content: `<@${hId}> <@${tid}>`, embeds:[{title:"DISQUALIFIED", color:16711680, thumbnail:{url:CONFIG.THUMBNAIL}, fields:[{name:"User", value:rblx},{name:"Reason", value:r}]}]}) });
-            batch.push({ rblx, id: tid, score: 0, status: "DQ", kS:0, mS:0, notes: {ov: "DQ: "+r} });
+            const rblx = document.getElementById('t-rblx').value;
+            const tid = document.getElementById('t-id').value;
+            const hId = document.getElementById('h-id').value;
+            if(!rblx || !tid || !hId) return alert("Ensure all IDs are filled.");
+            const reason = prompt("Disqualification Reason:");
+            if(!reason) return;
+
+            const body = { 
+                content: `<@${hId}> <@${tid}>`, 
+                embeds: [{ 
+                    title: "TRAINEE DISQUALIFIED", color: 16711680, 
+                    thumbnail: { url: CONFIG.THUMBNAIL },
+                    fields: [{name:"Trainee", value:rblx, inline:true}, {name:"Trainer", value:document.getElementById('h-rblx').value, inline:true}, {name:"Reason", value:reason}] 
+                }] 
+            };
+            await fetch(CONFIG.WEBHOOK, { method: 'POST', headers: {'Content-Type': 'application/json'}, body: JSON.stringify(body) });
+            batch.push({ rblx, id: tid, total: "0", status: "DISQUALIFIED", sec: {k:0,s1:0,s2:0,d:0}, notes: {ov: "DQ: " + reason} });
             renderBatch(); clearForm();
         }
 
         function renderBatch() {
-            const l = document.getElementById('batch-list'); l.innerHTML = batch.length ? "<h3>BATCH</h3>" : "";
-            batch.forEach((t, i) => l.innerHTML += `<div class="batch-card">${t.rblx} - ${t.score}/40 (${t.status}) <button class="t-btn active-red" onclick="batch.splice(${i},1);renderBatch()">X</button></div>`);
-            document.getElementById('pub-btn').style.display = batch.length ? 'block' : 'none';
+            const list = document.getElementById('batch-list');
+            list.innerHTML = batch.length ? "<h3>CURRENT BATCH</h3>" : "";
+            batch.forEach((t, i) => list.innerHTML += `<div class="batch-card"><div><strong>${t.rblx}</strong> - ${t.total}/30 (${t.status})</div><button class="t-btn active-red" style="width:auto" onclick="batch.splice(${i},1);renderBatch()">REMOVE</button></div>`);
+            document.getElementById('publish-btn').style.display = batch.length ? 'block' : 'none';
         }
 
-        function clearForm() { ['t-rblx','t-id','note-k','note-m','note-ov'].forEach(id=>document.getElementById(id).value=""); scores={}; document.querySelectorAll('.t-btn').forEach(b=>b.className='t-btn'); }
+        function clearForm() { 
+            ['t-rblx', 't-id', 't-notes', 'note-know', 'note-s1', 'note-s2', 'note-drive'].forEach(id => document.getElementById(id).value = ""); 
+            scores = {}; 
+            document.querySelectorAll('.t-btn').forEach(b => b.className = 't-btn'); 
+            document.querySelectorAll('.conditional-box').forEach(b => b.style.display = 'none'); 
+        }
 
         async function postAnn() {
-            const t = document.getElementById('ann-time').value, h = document.getElementById('ann-uid').value;
-            if(!t || !h) return alert("Missing Info");
-            const ux = Math.floor(new Date(t).getTime()/1000);
-            const body = { content: `<@&${CONFIG.ANNOUNCE_ROLE_ID}> <@${h}>`, embeds:[{ title:"NEW TRAINING SESSION", color:16711935, thumbnail:{url:CONFIG.THUMBNAIL}, image:{url:CONFIG.IMG_ANN}, fields:[{name:"Trainer", value:`<@${h}>`, inline:true}, {name:"Type", value:document.getElementById('ann-type').value, inline:true}, {name:"Time", value:`<t:${ux}:F>`}, {name:"Info", value:document.getElementById('ann-desc').value}]}] };
-            await fetch(CONFIG.WEBHOOK, { method:'POST', headers:{'Content-Type':'application/json'}, body:JSON.stringify(body)});
-            alert("Announced");
+            const time = document.getElementById('ann-time').value;
+            const hId = document.getElementById('ann-uid').value;
+            if(!time || !hId) return alert("Time and Trainer ID required.");
+            const unix = Math.floor(new Date(time).getTime() / 1000);
+
+            const body = { 
+                content: `<@&${CONFIG.ANNOUNCE_ROLE_ID}>`, 
+                embeds: [{ 
+                    title: "NEW TRAINING SESSION", color: 16711935, 
+                    thumbnail: { url: CONFIG.THUMBNAIL },
+                    image: { url: CONFIG.IMG_ANN },
+                    fields: [
+                        { name: "Trainer", value: `<@${hId}>`, inline: true },
+                        { name: "Type", value: document.getElementById('ann-type').value, inline: true },
+                        { name: "Location", value: document.getElementById('ann-loc').value, inline: true },
+                        { name: "Time", value: `<t:${unix}:F> (<t:${unix}:R>)` },
+                        { name: "Description", value: document.getElementById('ann-desc').value }
+                    ],
+                    footer: { text: "Ensure you meet all requirements before joining." }
+                }] 
+            };
+            await fetch(CONFIG.WEBHOOK, { method: 'POST', headers: {'Content-Type': 'application/json'}, body: JSON.stringify(body) });
+            alert("Announcement Posted.");
         }
 
         async function postVoiceVerify() {
-            const body = { content: `<@${document.getElementById('v-tr-id').value}> <@${document.getElementById('v-tn-id').value}>`, embeds:[{ title:"VOICE VERIFICATION", color:65535, thumbnail:{url:CONFIG.THUMBNAIL}, image:{url:CONFIG.IMG_VV}, fields:[{name:"User", value:document.getElementById('v-name').value, inline:true},{name:"Age", value:document.getElementById('v-age').value, inline:true}]}] };
-            await fetch(CONFIG.WEBHOOK, { method:'POST', headers:{'Content-Type':'application/json'}, body:JSON.stringify(body)});
-            alert("Verified");
+            const trId = document.getElementById('v-trainer-uid').value;
+            const tnId = document.getElementById('v-trainee-uid').value;
+            if(!trId || !tnId) return alert("IDs Required.");
+
+            const body = { 
+                content: `<@${trId}> <@${tnId}>`, 
+                embeds: [{ 
+                    title: "VOICE VERIFICATION RESULT", color: 65535, 
+                    thumbnail: { url: CONFIG.THUMBNAIL },
+                    image: { url: CONFIG.IMG_VV },
+                    fields: [
+                        { name: "User", value: document.getElementById('v-trainee-name').value, inline: true },
+                        { name: "Verified Age", value: document.getElementById('v-age').value, inline: true }
+                    ] 
+                }] 
+            };
+            await fetch(CONFIG.WEBHOOK, { method: 'POST', headers: {'Content-Type': 'application/json'}, body: JSON.stringify(body) });
+            alert("Verification Sent.");
         }
 
         async function publish() {
             const hId = document.getElementById('h-id').value;
-            const pings = `<@${hId}> ` + batch.map(t=>`<@${t.id}>`).join(" ");
+            const pings = `<@${hId}> ` + batch.map(t => `<@${t.id}>`).join(" ");
+            
             const embeds = batch.map((t, idx) => {
-                const f = [{name:"Candidate", value:`${t.rblx} (<@${t.id}>)`, inline:true}, {name:"Score", value:`**${t.score}/40**`, inline:true}, {name:"Breakdown", value:`Knowledge: ${t.kS}/20\nMod/Driving: ${t.mS}/20`}];
-                if(t.notes.k) f.push({name:"Knowledge Notes", value:t.notes.k});
-                if(t.notes.m) f.push({name:"Mod/Driving Notes", value:t.notes.m});
-                if(t.notes.ov) f.push({name:"Final Summary", value:t.notes.ov});
-                return { title:`EVALUATION: ${t.status}`, color: t.status==="PASS"?65280:16711680, thumbnail:{url:CONFIG.THUMBNAIL}, image: idx===batch.length-1?{url:CONFIG.IMG_RES}:null, fields: f };
+                const fields = [
+                    { name: "Candidate", value: `${t.rblx} (<@${t.id}>)`, inline: true },
+                    { name: "Overall Score", value: `**${t.total}/40**`, inline: true },
+                    { name: "Section Scores", value: `Knowledge: ${t.sec.k}/10\nScene 1: ${t.sec.s1}/10\nScene 2: ${t.sec.s2}/10\nDriving: ${t.sec.d}/10` }
+                ];
+
+                if(t.notes.k) fields.push({ name: "Knowledge Notes", value: t.notes.k });
+                if(t.notes.s1) fields.push({ name: "Scene 1 Notes", value: t.notes.s1 });
+                if(t.notes.s2) fields.push({ name: "Scene 2 Notes", value: t.notes.s2 });
+                if(t.notes.d) fields.push({ name: "Driving Notes", value: t.notes.d });
+                if(t.notes.ov) fields.push({ name: "Final Summary", value: t.notes.ov });
+
+                return {
+                    title: `TRAINING EVALUATION: ${t.status}`,
+                    color: t.status === "PASS" ? 65280 : 16711680,
+                    thumbnail: { url: CONFIG.THUMBNAIL },
+                    image: idx === batch.length - 1 ? { url: CONFIG.IMG_RES } : null,
+                    fields: fields
+                };
             });
-            await fetch(CONFIG.WEBHOOK, { method:'POST', headers:{'Content-Type':'application/json'}, body:JSON.stringify({content:pings, embeds})});
-            alert("Published"); batch=[]; renderBatch();
+
+            await fetch(CONFIG.WEBHOOK, { method: 'POST', headers: {'Content-Type': 'application/json'}, body: JSON.stringify({ content: pings, embeds }) });
+            alert("Batch Results Published."); batch = []; renderBatch();
         }
     </script>
 </body>
