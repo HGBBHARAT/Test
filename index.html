@@ -7,21 +7,13 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
     <script>
         const CONFIG = {
-            // WEBHOOKS
-            WH_ANNOUNCE: "https://discord.com/api/webhooks/1465632467586121833/Flg-KV08bwIvmjyJsi0YzSvktv4j9tlaz03K0779D7CKhequInbVrKsV2cYmYUD0DTBo",
-            WH_RESULTS: "https://discord.com/api/webhooks/1464977885629779990/D-mwGVTC23B7dsnZ70p5TFyV1mvLACJLKVmF9xJtsd2Othgg7VzwzMwOCFU8Wd_v6rni",
-            WH_DQ: "https://discord.com/api/webhooks/1465592081345937491/ysNzOcj-7KJRWogSKAw5miTWVlCAZqyM4_ovClhWJJ6GulrqF0mKvCA-Wvs0vBWqsmLP",
-            WH_VOICE: "https://discord.com/api/webhooks/1465592081345937491/ysNzOcj-7KJRWogSKAw5miTWVlCAZqyM4_ovClhWJJ6GulrqF0mKvCA-Wvs0vBWqsmLP",
-
+            WEBHOOK: "https://discord.com/api/webhooks/1464977885629779990/D-mwGVTC23B7dsnZ70p5TFyV1mvLACJLKVmF9xJtsd2Othgg7VzwzMwOCFU8Wd_v6rni",
             ANNOUNCE_ROLE_ID: "1381367978611839136",
             ACCESS_KEY: "Merse noob",
-            
-            // IMAGES
             THUMBNAIL: "https://cdn.discordapp.com/attachments/1460325955963846819/1465253303234330677/Hrbrp.png?ex=69786efa&is=69771d7a&hm=34283654c5b9e97f2a5ec16a212fddb316e7fb676d16c12f7c61d2efc9a902ba&",
             IMG_ANN: "https://cdn.discordapp.com/attachments/1434075893868920852/1453697838994296855/HRPBRP_Announcement.png",
             IMG_RES: "https://media.discordapp.net/attachments/1460325955963846819/1464990348416909536/High_Rock_Banners_31.png?ex=697822d5&is=6976d155&hm=3521853af6005b6a809e4badeb16727dd6e387b5c5949a73be2b9739d7e857f6&=&format=webp&quality=lossless&width=1214&height=363",
-            IMG_DQ: "YOUR_LARGE_DQ_IMAGE_URL",
-            IMG_VV: "https://media.discordapp.net/attachments/1460325955963846819/1464990348806983720/High_Rock_Banners_32.png?ex=69797455&is=697822d5&hm=ff546dcd651c45692f7c7fe80d3b3644466b17c549ca0bd7c1455379dbe7d850&=&format=webp&quality=lossless&width=1214&height=363"
+            IMG_VV: "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAJCAYAAABT2S4KAAAEvElEQVR4AQCBAH7/AHc9WP93PVj/dj5Y/3Q+Wf9yPln/cD9a/20/W/9rQFz/Z0Bd/2RBXv9hQV//XUJg/1pCYf9XQ2L/U0Ni/1BDY/9OQ2P/S0Nj/0lDY/9HQ2P/RkNj/0RDY/9DQmL/QkJi/0JBYf9BQWH/QUFg/0FAYP9BQF//QUBf/0FAX/9BP17/AIEAfv8Afz1S/349Uv99PVL/fD5T/3o+VP94PlT/dT9V/3I/Vv9vQFf/bEBY/2hBWf9lQVr/YUJb/15CXP9bQ1z/WENd/1VDXf9TQ13/UUNd/09DXf9NQl3/TEJc/0tCXP9KQVv/SkFb/0lAWv9JQFr/SUBZ/0g/Wf9IP1j/SD9Y/0g/WP8AgQB+/wCLPEn/ijxJ/4k9Sf+IPUr/hj1L/4M+S/+BPkz/fj9N/3s/Tv93QE//dEBQ/3FBUf9tQVH/akJS/2dCU/9kQlP/YkJT/19CU/9dQlP/W0JT/1pCU/9YQVL/V0FS/1dBUf9WQFH/VkBQ/1U/T/9VP0//VT9O/1U+Tv9VPk7/VT5O/wCBAH7/AJY8QP+WPEH/lTxB/5M9Qf+RPUL/jz5D/4w+RP+KP0T/hj9F/4NARv+AQEf/fUFI/3lBSP92QUn/c0JJ/3BCSv9uQkr/a0JK/2lCSv9nQkn/ZkFJ/2VBSf9kQUj/Y0BH/2JAR/9iP0b/Yj9F/2E/Rf9hPkT/YT5E/2E+RP9hPkP/AIEAfv8AnT08/509PP+cPT3/mj49/5g+Pv+WPj7/kz8//5E/QP+OQEH/ikBB/4dBQv+EQUP/gUJD/31CRP96QkT/eENE/3VDRP9zQ0T/cUNE/29CRP9uQkP/bEJD/2tBQv9rQUH/akFB/2pAQP9qQD//aT8+/2k/Pv9pPz7/aT89/2k/Pf8AgQB+/wCdPz3/nT89/5w/Pv+bPz7/mUA//5dAP/+UQUD/kUFB/45CQf+LQkL/iEND/4VDQ/+BRET/fkRE/3tERf95REX/dkRF/3RERP9yRET/cERE/29EQ/9uQ0L/bUNC/2xDQf9sQkD/a0I//2tBPv9rQT7/a0E9/2tAPf9rQDz/a0A8/wCBAH7/AJhBQ/+YQUP/l0FD/5ZCRP+UQkT/kkJF/49DRf+MQ0b/iURH/4ZER/+DRUj/gEVJ/31GSf96Rkn/d0ZJ/3RHSf9yR0n/b0dJ/21GSf9sRkj/akZH/2lGR/9oRUb/aEVF/2dERP9nREP/Z0NC/2dDQv9nQ0H/Z0NB/2dCQP9nQkD/AIEAfv8AkkNK/5FDSv+QREr/j0RL/41ES/+LRUz/iEVM/4VGTf+CRk7/f0dO/3xHT/95SE//dkhQ/3NIUP9wSVD/bUlQ/2tJUP9pSU//Z0lP/2VITv9kSE3/Y0hN/2JHTP9hR0v/YUZK/2FGSf9gRkj/YEVH/2BFR/9gRUb/YERG/2BERv8BgQB+/wCNRU//jEVP/4tFT/+KRU//iEZQ/4ZGUP+DRlH/gUdS/35IUv97SFP/d0lT/3RJVP9xSVT/bkpU/2tKVP9pSlT/ZkpU/2RKVP9iSlP/YUpS/19JUv9eSVH/XUlQ/11IT/9cSE7/XEdN/1xHTP9cR0v/XEZL/1xGSv9cRkr/XEZK/7p1PCVMGGmNAAAAAElFTkSuQmCC"
         };
     </script>
     <style>
@@ -172,6 +164,7 @@
         let batch = [];
         let scores = {};
 
+        // Generate Knowledge Section Inputs
         const kDiv = document.getElementById('knowledge-container');
         for(let i=1; i<=10; i++) {
             kDiv.innerHTML += `<div><label>Q${i}</label><div class="btn-grp"><button class="t-btn" onclick="setTog('k${i}',1,this)">Good</button><button class="t-btn" onclick="setMidTog('k${i}',0.5,this)">Okay</button><button class="t-btn" onclick="setTog('k${i}',0,this)">Bad</button></div></div>`;
@@ -208,6 +201,7 @@
             ['d1', 'd2', 'd3', 'd4'].forEach(k => dScore += scores[k] || 0);
 
             const total = kScore + s1Score + s2Score + dScore;
+            // UPDATE: Passing score set to 30/40
             const pass = total >= 30 ? "PASS" : "FAIL";
 
             batch.push({ 
@@ -229,37 +223,32 @@
             const hId = document.getElementById('h-id').value;
             const hRblx = document.getElementById('h-rblx').value;
             
-            if(!hId || !hRblx) return alert("Host details required for DQ.");
+            if(!hId) return alert("Host Discord ID is required to process DQ.");
             
-            const reason = prompt(`Reason for disqualifying ${trainee.rblx}:`);
+            const reason = prompt(`Disqualification Reason for ${trainee.rblx}:`);
             if(!reason) return;
 
             const body = { 
                 content: `<@${hId}> <@${trainee.id}>`, 
                 embeds: [{ 
-                    title: "⛔ TRAINEE DISQUALIFIED", 
-                    description: `The following user has been officially removed from the training session due to a protocol violation.`,
-                    color: 15548997, 
+                    title: "TRAINEE DISQUALIFIED", color: 16711680, 
                     thumbnail: { url: CONFIG.THUMBNAIL },
-                    image: { url: CONFIG.IMG_DQ },
                     fields: [
-                        {name: "👤 Candidate Details", value: `**Username:** ${trainee.rblx}\n**User ID:** ${trainee.id}`, inline: false},
-                        {name: "⚖️ Reason for Removal", value: `\`\`\`${reason}\`\`\``, inline: false},
-                        {name: "👨‍🏫 Presiding Trainer", value: `<@${hId}> (${hRblx})`, inline: true},
-                        {name: "⏰ Timestamp", value: `<t:${Math.floor(Date.now()/1000)}:F>`, inline: true}
-                    ],
-                    footer: { text: "High Rock Black Roleplay | Administrative Action" }
+                        {name:"Trainee", value:trainee.rblx, inline:true}, 
+                        {name:"Trainer", value: hRblx || "Unknown", inline:true}, 
+                        {name:"Reason", value:reason}
+                    ] 
                 }] 
             };
             
-            try {
-                await fetch(CONFIG.WH_DQ, { method: 'POST', headers: {'Content-Type': 'application/json'}, body: JSON.stringify(body) });
-                batch[index].status = "DISQUALIFIED";
-                batch[index].total = "0.0";
-                batch[index].notes.ov = "DISQUALIFIED: " + reason;
-                renderBatch();
-                alert(`${trainee.rblx} Disqualified successfully.`);
-            } catch (e) { alert("Failed to send DQ to Discord."); }
+            await fetch(CONFIG.WEBHOOK, { method: 'POST', headers: {'Content-Type': 'application/json'}, body: JSON.stringify(body) });
+            
+            // Update the trainee status in the batch instead of creating a new entry
+            batch[index].status = "DISQUALIFIED";
+            batch[index].total = "0.0";
+            batch[index].notes.ov = "DQ: " + reason;
+            renderBatch();
+            alert(`${trainee.rblx} has been disqualified.`);
         }
 
         function renderBatch() {
@@ -307,7 +296,7 @@
                     footer: { text: "Ensure you meet all requirements before joining." }
                 }] 
             };
-            await fetch(CONFIG.WH_ANNOUNCE, { method: 'POST', headers: {'Content-Type': 'application/json'}, body: JSON.stringify(body) });
+            await fetch(CONFIG.WEBHOOK, { method: 'POST', headers: {'Content-Type': 'application/json'}, body: JSON.stringify(body) });
             alert("Announcement Posted.");
         }
 
@@ -328,7 +317,7 @@
                     ] 
                 }] 
             };
-            await fetch(CONFIG.WH_VOICE, { method: 'POST', headers: {'Content-Type': 'application/json'}, body: JSON.stringify(body) });
+            await fetch(CONFIG.WEBHOOK, { method: 'POST', headers: {'Content-Type': 'application/json'}, body: JSON.stringify(body) });
             alert("Verification Sent.");
         }
 
@@ -342,6 +331,7 @@
                     { name: "Overall Score", value: `**${t.total}/40**`, inline: true },
                     { name: "Section Scores", value: `Knowledge: ${t.sec.k}/10\nScene 1: ${t.sec.s1}/10\nScene 2: ${t.sec.s2}/10\nDriving: ${t.sec.d}/10` }
                 ];
+
                 if(t.notes.k) fields.push({ name: "Knowledge Notes", value: t.notes.k });
                 if(t.notes.s1) fields.push({ name: "Scene 1 Notes", value: t.notes.s1 });
                 if(t.notes.s2) fields.push({ name: "Scene 2 Notes", value: t.notes.s2 });
@@ -357,10 +347,9 @@
                 };
             });
 
-            await fetch(CONFIG.WH_RESULTS, { method: 'POST', headers: {'Content-Type': 'application/json'}, body: JSON.stringify({ content: pings, embeds }) });
+            await fetch(CONFIG.WEBHOOK, { method: 'POST', headers: {'Content-Type': 'application/json'}, body: JSON.stringify({ content: pings, embeds }) });
             alert("Batch Results Published."); batch = []; renderBatch();
         }
     </script>
 </body>
 </html>
-
