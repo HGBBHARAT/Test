@@ -8,10 +8,10 @@
     <script>
         const CONFIG = {
             // WEBHOOKS
-            WH_ANNOUNCE: "https://discord.com/api/webhooks/1464977885629779990/D-mwGVTC23B7dsnZ70p5TFyV1mvLACJLKVmF9xJtsd2Othgg7VzwzMwOCFU8Wd_v6rni",
-            WH_EVALUATION: "https://discord.com/api/webhooks/1465592081345937491/ysNzOcj-7KJRWogSKAw5miTWVlCAZqyM4_ovClhWJJ6GulrqF0mKvCA-Wvs0vBWqsmLP",
-            WH_DQ: "https://discord.com/api/webhooks/1465632467586121833/Flg-KV08bwIvmjyJsi0YzSvktv4j9tlaz03K0779D7CKhequInbVrKsV2cYmYUD0DTBo",
-            WH_VOICE: "https://discord.com/api/webhooks/1465632467586121833/Flg-KV08bwIvmjyJsi0YzSvktv4j9tlaz03K0779D7CKhequInbVrKsV2cYmYUD0DTBo",
+            WH_ANNOUNCE: "https://discord.com/api/webhooks/1465632467586121833/Flg-KV08bwIvmjyJsi0YzSvktv4j9tlaz03K0779D7CKhequInbVrKsV2cYmYUD0DTBo",
+            WH_RESULTS: "https://discord.com/api/webhooks/1464977885629779990/D-mwGVTC23B7dsnZ70p5TFyV1mvLACJLKVmF9xJtsd2Othgg7VzwzMwOCFU8Wd_v6rni",
+            WH_DQ: "https://discord.com/api/webhooks/1465592081345937491/ysNzOcj-7KJRWogSKAw5miTWVlCAZqyM4_ovClhWJJ6GulrqF0mKvCA-Wvs0vBWqsmLP",
+            WH_VOICE: "https://discord.com/api/webhooks/1465592081345937491/ysNzOcj-7KJRWogSKAw5miTWVlCAZqyM4_ovClhWJJ6GulrqF0mKvCA-Wvs0vBWqsmLP",
 
             ANNOUNCE_ROLE_ID: "1381367978611839136",
             ACCESS_KEY: "Merse noob",
@@ -20,8 +20,8 @@
             THUMBNAIL: "https://cdn.discordapp.com/attachments/1460325955963846819/1465253303234330677/Hrbrp.png?ex=69786efa&is=69771d7a&hm=34283654c5b9e97f2a5ec16a212fddb316e7fb676d16c12f7c61d2efc9a902ba&",
             IMG_ANN: "https://cdn.discordapp.com/attachments/1434075893868920852/1453697838994296855/HRPBRP_Announcement.png",
             IMG_RES: "https://media.discordapp.net/attachments/1460325955963846819/1464990348416909536/High_Rock_Banners_31.png?ex=697822d5&is=6976d155&hm=3521853af6005b6a809e4badeb16727dd6e387b5c5949a73be2b9739d7e857f6&=&format=webp&quality=lossless&width=1214&height=363",
-            IMG_DQ: "YOUR_LARGE_DQ_BANNER_URL", 
-            IMG_VV: "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAJCAYAAABT2S4KAAAEvElEQVR4AQCBAH7/AHc9WP93PVj/dj5Y/3Q+Wf9yPln/cD9a/20/W/9rQFz/Z0Bd/2RBXv9hQV//XUJg/1pCYf9XQ2L/U0Ni/1BDY/9OQ2P/S0Nj/0lDY/9HQ2P/RkNj/0RDY/9DQmL/QkJi/0JBYf9BQWH/QUFg/0FAYP9BQF//QUBf/0FAX/9BP17/AIEAfv8Afz1S/349Uv99PVL/fD5T/3o+VP94PlT/dT9V/3I/Vv9vQFf/bEBY/2hBWf9lQVr/YUJb/15CXP9bQ1z/WENd/1VDXf9TQ13/UUNd/09DXf9NQl3/TEJc/0tCXP9KQVv/SkFb/0lAWv9JQFr/SUBZ/0g/Wf9IP1j/SD9Y/0g/WP8AgQB+/wCLPEn/ijxJ/4k9Sf+IPUr/hj1L/4M+S/+BPkz/fj9N/3s/Tv93QE//dEBQ/3FBUf9tQVH/akJS/2dCU/9kQlP/YkJT/19CU/9dQlP/W0JT/1pCU/9YQVL/V0FS/1dBUf9WQFH/VkBQ/1U/T/9VP0//VT9O/1U+Tv9VPk7/VT5O/wCBAH7/AJY8QP+WPEH/lTxB/5M9Qf+RPUL/jz5D/4w+RP+KP0T/hj9F/4NARv+AQEf/fUFI/3lBSP92QUn/c0JJ/3BCSv9uQkr/a0JK/2lCSv9nQkn/ZkFJ/2VBSf9kQUj/Y0BH/2JAR/9iP0b/Yj9F/2E/Rf9hPkT/YT5E/2E+RP9hPkP/AIEAfv8AnT08/509PP+cPT3/mj49/5g+Pv+WPj7/kz8//5E/QP+OQEH/ikBB/4dBQv+EQUP/gUJD/31CRP96QkT/eENE/3VDRP9zQ0T/cUNE/29CRP9uQkP/bEJD/2tBQv9rQUH/akFB/2pAQP9qQD//aT8+/2k/Pv9pPz7/aT89/2k/Pf8AgQB+/wCdPz3/nT89/5w/Pv+bPz7/mUA//5dAP/+UQUD/kUFB/45CQf+LQkL/iEND/4VDQ/+BRET/fkRE/3tERf95REX/dkRF/3RERP9yRET/cERE/29EQ/9uQ0L/bUNC/2xDQf9sQkD/a0I//2tBPv9rQT7/a0E9/2tAPf9rQDz/a0A8/wCBAH7/AJhBQ/+YQUP/l0FD/5ZCRP+UQkT/kkJF/49DRf+MQ0b/iURH/4ZER/+DRUj/gEVJ/31GSf96Rkn/d0ZJ/3RHSf9yR0n/b0dJ/21GSf9sRkj/akZH/2lGR/9oRUb/aEVF/2dERP9nREP/Z0NC/2dDQv9nQ0H/Z0NB/2dCQP9nQkD/AIEAfv8AkkNK/5FDSv+QREr/j0RL/41ES/+LRUz/iEVM/4VGTf+CRk7/f0dO/3xHT/95SE//dkhQ/3NIUP9wSVD/bUlQ/2tJUP9pSU//Z0lP/2VITv9kSE3/Y0hN/2JHTP9hR0v/YUZK/2FGSf9gRkj/YEVH/2BFR/9gRUb/YERG/2BERv8BgQB+/wCNRU//jEVP/4tFT/+KRU//iEZQ/4ZGUP+DRlH/gUdS/35IUv97SFP/d0lT/3RJVP9xSVT/bkpU/2tKVP9pSlT/ZkpU/2RKVP9iSlP/YUpS/19JUv9eSVH/XUlQ/11IT/9cSE7/XEdN/1xHTP9cR0v/XEZL/1xGSv9cRkr/XEZK/7p1PCVMGGmNAAAAAElFTkSuQmCC"
+            IMG_DQ: "YOUR_LARGE_DQ_IMAGE_URL",
+            IMG_VV: "https://media.discordapp.net/attachments/1460325955963846819/1464990348806983720/High_Rock_Banners_32.png?ex=69797455&is=697822d5&hm=ff546dcd651c45692f7c7fe80d3b3644466b17c549ca0bd7c1455379dbe7d850&=&format=webp&quality=lossless&width=1214&height=363"
         };
     </script>
     <style>
@@ -49,7 +49,9 @@
         .t-btn.active-red { background: var(--fail); color: #fff; }
         .t-btn.active-okay { background: var(--okay); color: #000; }
         .primary-btn { background: var(--blue); color: black; border: none; padding: 18px; width: 100%; border-radius: 12px; font-weight: 800; cursor: pointer; margin-top: 25px; text-transform: uppercase; }
+        .conditional-box { background: rgba(255, 68, 68, 0.05); padding: 10px; border-left: 3px solid var(--fail); margin-top: 10px; display: none; }
         .batch-card { background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.1); padding: 15px; border-radius: 12px; display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; }
+        .section-note { height: 60px; font-size: 0.8rem; margin-top: 10px; border: 1px dashed rgba(0, 242, 255, 0.3); }
     </style>
 </head>
 <body>
@@ -75,15 +77,15 @@
             </div>
             <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
                 <div><label>Location</label><input type="text" id="ann-loc" value="Sheriff Briefing Room"></div>
-                <div><label>Start Date & Time</label><input type="datetime-local" id="ann-time"></div>
+                <div><label>Start Date & Time (Required)*</label><input type="datetime-local" id="ann-time"></div>
             </div>
             <label>Specific Instructions</label>
-            <textarea id="ann-desc" rows="4">Professionalism and strict adherence to SPaG are mandatory.</textarea>
+            <textarea id="ann-desc" rows="4">Professionalism and strict adherence to SPaG (Spelling, Punctuation, and Grammar) are mandatory throughout the entirety of this session.</textarea>
             <button onclick="postAnn()" class="primary-btn">POST TO DISCORD</button>
         </div>
 
         <div id="res-content" class="content">
-            <h2>BATCH EVALUATOR (40 MARKS)</h2>
+            <h2>BATCH EVALUATOR</h2>
             <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; background: rgba(0,0,0,0.3); padding: 20px; border-radius: 15px;">
                 <div><label>Host Roblox Username</label><input type="text" id="h-rblx" oninput="saveHost()"></div>
                 <div><label>Host Discord ID</label><input type="text" id="h-id" oninput="saveHost()"></div>
@@ -97,13 +99,56 @@
                 </div>
 
                 <div class="eval-section">
-                    <h4>KNOWLEDGE, SCENES & DRIVING</h4>
+                    <h4>1. KNOWLEDGE (10 MARKS)</h4>
                     <div id="knowledge-container" style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;"></div>
+                    <textarea id="note-know" class="section-note" placeholder="Knowledge Section Feedback (Optional)"></textarea>
                 </div>
 
-                <label>Final Summary / Notes</label>
-                <textarea id="t-notes" placeholder="Final comments..."></textarea>
-                <button onclick="addTrainee()" class="primary-btn" style="background: var(--pass); margin-top: 20px;">ADD TO BATCH</button>
+                <div class="eval-section">
+                    <h4>2. SCENE 1 - RDM (10 MARKS)</h4>
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px;">
+                        <div><label>Healed?</label><div class="btn-grp"><button class="t-btn" onclick="setTog('s1_h', 2.5, this)">Yes</button><button class="t-btn" onclick="setTog('s1_h', 0, this)">No</button></div></div>
+                        <div><label>SPaG?</label><div class="btn-grp"><button class="t-btn" onclick="setTog('s1_s', 2.5, this)">Yes</button><button class="t-btn" onclick="setTog('s1_s', 0, this)">No</button></div></div>
+                        <div><label>Proof Checked?</label><div class="btn-grp"><button class="t-btn" onclick="setTog('s1_p', 2.5, this)">Yes</button><button class="t-btn" onclick="setTog('s1_p', 0, this)">No</button></div></div>
+                        <div><label>Disrespect Found?</label><div class="btn-grp"><button class="t-btn" onclick="setTog('s1_m', 2.5, this, 'staff')">Yes</button><button class="t-btn" onclick="setTog('s1_m', 0, this, 'staff')">No</button></div></div>
+                    </div>
+                    <div id="cond-staff" class="conditional-box"><label>Staff Disrespect?</label><div class="btn-grp"><button class="t-btn" onclick="setTog('s1_sd', 1.5, this, 'srdm')">Yes</button><button class="t-btn" onclick="setTog('s1_sd', 0, this, 'srdm')">No</button></div></div>
+                    <div id="cond-srdm" class="conditional-box"><label>SRDM Case?</label><div class="btn-grp"><button class="t-btn" onclick="setTog('s1_sr', 0.5, this)">Yes</button><button class="t-btn" onclick="setTog('s1_sr', 0, this)">No</button></div></div>
+                    <textarea id="note-s1" class="section-note" placeholder="Scene 1 Feedback (Optional)"></textarea>
+                </div>
+
+                <div class="eval-section">
+                    <h4>3. SCENE 2 - CUFF RUSH (10 MARKS)</h4>
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px;">
+                        <div><label>SPaG?</label><div class="btn-grp"><button class="t-btn" onclick="setTog('s2_s', 2.5, this)">Yes</button><button class="t-btn" onclick="setTog('s2_s', 0, this)">No</button></div></div>
+                        <div><label>Correct Punishment?</label><div class="btn-grp"><button class="t-btn" onclick="setTog('s2_p', 2.5, this)">Yes</button><button class="t-btn" onclick="setTog('s2_p', 0, this)">No</button></div></div>
+                    </div>
+                    <label>Proof Guidance?</label>
+                    <div class="btn-grp">
+                        <button class="t-btn" onclick="setTog('s2_g', 5, this)">Fluent</button>
+                        <button class="t-btn" onclick="setMidTog('s2_g', 2.5, this)">Struggled</button>
+                        <button class="t-btn" onclick="setTog('s2_g', 0, this)">Failed</button>
+                    </div>
+                    <textarea id="note-s2" class="section-note" placeholder="Scene 2 Feedback (Optional)"></textarea>
+                </div>
+
+                <div class="eval-section">
+                    <h4>4. DRIVING (10 MARKS)</h4>
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px;">
+                        <div><label>Vehicle Control</label><div class="btn-grp"><button class="t-btn" onclick="setTog('d1', 2.5, this)">Yes</button><button class="t-btn" onclick="setTog('d1', 0, this)">No</button></div></div>
+                        <div><label>Code 3 Protocol</label><div class="btn-grp"><button class="t-btn" onclick="setTog('d2', 2.5, this)">Yes</button><button class="t-btn" onclick="setTog('d2', 0, this)">No</button></div></div>
+                        <div><label>Speed Management</label><div class="btn-grp"><button class="t-btn" onclick="setTog('d3', 2.5, this)">Yes</button><button class="t-btn" onclick="setTog('d3', 0, this)">No</button></div></div>
+                        <div><label>Road Safety</label><div class="btn-grp"><button class="t-btn" onclick="setTog('d4', 2.5, this)">Yes</button><button class="t-btn" onclick="setTog('d4', 0, this)">No</button></div></div>
+                    </div>
+                    <textarea id="note-drive" class="section-note" placeholder="Driving Feedback (Optional)"></textarea>
+                </div>
+
+                <label>Overall Summary</label>
+                <textarea id="t-notes" placeholder="Final comments on overall performance..."></textarea>
+                
+                <div style="margin-top: 20px;">
+                    <button onclick="addTrainee()" class="primary-btn" style="background: var(--pass); margin-top: 0;">ADD TO BATCH</button>
+                </div>
             </div>
 
             <div id="batch-list" style="margin-top: 20px;"></div>
@@ -129,7 +174,7 @@
 
         const kDiv = document.getElementById('knowledge-container');
         for(let i=1; i<=10; i++) {
-            kDiv.innerHTML += `<div><label>Point ${i}</label><div class="btn-grp"><button class="t-btn" onclick="setTog('k${i}',4,this)">Pass</button><button class="t-btn" onclick="setMidTog('k${i}',2,this)">Med</button><button class="t-btn" onclick="setTog('k${i}',0,this)">Fail</button></div></div>`;
+            kDiv.innerHTML += `<div><label>Q${i}</label><div class="btn-grp"><button class="t-btn" onclick="setTog('k${i}',1,this)">Good</button><button class="t-btn" onclick="setMidTog('k${i}',0.5,this)">Okay</button><button class="t-btn" onclick="setTog('k${i}',0,this)">Bad</button></div></div>`;
         }
 
         function unlock() { if(document.getElementById('pass-field').value === CONFIG.ACCESS_KEY) { document.getElementById('login-screen').style.display='none'; document.getElementById('dashboard').style.display='block'; loadHost(); } else alert("Access Denied."); }
@@ -137,10 +182,12 @@
         function loadHost() { document.getElementById('h-rblx').value = localStorage.getItem('hr_host_rblx') || ""; document.getElementById('h-id').value = localStorage.getItem('hr_host_id') || ""; }
         function switchTab(t) { document.querySelectorAll('.content').forEach(c=>c.classList.remove('active')); document.querySelectorAll('.tab').forEach(tab=>tab.classList.remove('active')); document.getElementById(t+'-content').classList.add('active'); document.getElementById('tab-'+t).classList.add('active'); }
 
-        function setTog(key, val, btn) {
+        function setTog(key, val, btn, cond) {
             scores[key] = val;
             btn.parentElement.querySelectorAll('.t-btn').forEach(b => b.className = 't-btn');
             btn.className = val > 0 ? 't-btn active-green' : 't-btn active-red';
+            if(cond === 'staff') document.getElementById('cond-staff').style.display = val === 0 ? 'block' : 'none';
+            if(cond === 'srdm') document.getElementById('cond-srdm').style.display = val === 0 ? 'block' : 'none';
         }
 
         function setMidTog(key, val, btn) {
@@ -154,13 +201,25 @@
             const tid = document.getElementById('t-id').value;
             if(!rblx || !tid) return alert("Fill in Trainee details.");
 
-            let total = 0;
-            for(let i=1; i<=10; i++) total += scores['k'+i] || 0;
+            let kScore = 0, s1Score = 0, s2Score = 0, dScore = 0;
+            for(let i=1; i<=10; i++) kScore += scores['k'+i] || 0;
+            ['s1_h', 's1_s', 's1_p', 's1_m', 's1_sd', 's1_sr'].forEach(k => s1Score += scores[k] || 0);
+            ['s2_s', 's2_p', 's2_g'].forEach(k => s2Score += scores[k] || 0);
+            ['d1', 'd2', 'd3', 'd4'].forEach(k => dScore += scores[k] || 0);
+
+            const total = kScore + s1Score + s2Score + dScore;
             const pass = total >= 30 ? "PASS" : "FAIL";
 
             batch.push({ 
                 rblx, id: tid, total: total.toFixed(1), status: pass,
-                notes: document.getElementById('t-notes').value.trim()
+                sec: { k: kScore.toFixed(1), s1: s1Score.toFixed(1), s2: s2Score.toFixed(1), d: dScore.toFixed(1) },
+                notes: {
+                    k: document.getElementById('note-know').value.trim(),
+                    s1: document.getElementById('note-s1').value.trim(),
+                    s2: document.getElementById('note-s2').value.trim(),
+                    d: document.getElementById('note-drive').value.trim(),
+                    ov: document.getElementById('t-notes').value.trim()
+                }
             });
             renderBatch(); clearForm();
         }
@@ -169,69 +228,139 @@
             const trainee = batch[index];
             const hId = document.getElementById('h-id').value;
             const hRblx = document.getElementById('h-rblx').value;
-            if(!hId || !hRblx) return alert("Host details required.");
-            const reason = prompt(`DQ Reason for ${trainee.rblx}:`);
+            
+            if(!hId || !hRblx) return alert("Host details required for DQ.");
+            
+            const reason = prompt(`Reason for disqualifying ${trainee.rblx}:`);
             if(!reason) return;
 
-            const payload = { 
+            const body = { 
                 content: `<@${hId}> <@${trainee.id}>`, 
                 embeds: [{ 
                     title: "⛔ TRAINEE DISQUALIFIED", 
-                    description: `An official removal has been processed for the session.`,
+                    description: `The following user has been officially removed from the training session due to a protocol violation.`,
                     color: 15548997, 
                     thumbnail: { url: CONFIG.THUMBNAIL },
                     image: { url: CONFIG.IMG_DQ },
                     fields: [
-                        {name: "👤 Trainee (Roblox)", value: `\`${trainee.rblx}\``, inline: true},
-                        {name: "🆔 Trainee (Discord)", value: `<@${trainee.id}> (\`${trainee.id}\`)`, inline: true},
-                        {name: "⚖️ Reason", value: `\`\`\`${reason}\`\`\``, inline: false},
-                        {name: "👨‍🏫 Trainer", value: `<@${hId}> (\`${hRblx}\`)`, inline: true}
+                        {name: "👤 Candidate Details", value: `**Username:** ${trainee.rblx}\n**User ID:** ${trainee.id}`, inline: false},
+                        {name: "⚖️ Reason for Removal", value: `\`\`\`${reason}\`\`\``, inline: false},
+                        {name: "👨‍🏫 Presiding Trainer", value: `<@${hId}> (${hRblx})`, inline: true},
+                        {name: "⏰ Timestamp", value: `<t:${Math.floor(Date.now()/1000)}:F>`, inline: true}
                     ],
-                    footer: { text: "HRBRP Session Management" }
+                    footer: { text: "High Rock Black Roleplay | Administrative Action" }
                 }] 
             };
-            await fetch(CONFIG.WH_DQ, { method: 'POST', headers: {'Content-Type': 'application/json'}, body: JSON.stringify(payload) });
-            batch[index].status = "DISQUALIFIED"; batch[index].total = "0.0"; renderBatch();
+            
+            try {
+                await fetch(CONFIG.WH_DQ, { method: 'POST', headers: {'Content-Type': 'application/json'}, body: JSON.stringify(body) });
+                batch[index].status = "DISQUALIFIED";
+                batch[index].total = "0.0";
+                batch[index].notes.ov = "DISQUALIFIED: " + reason;
+                renderBatch();
+                alert(`${trainee.rblx} Disqualified successfully.`);
+            } catch (e) { alert("Failed to send DQ to Discord."); }
         }
 
         function renderBatch() {
             const list = document.getElementById('batch-list');
             list.innerHTML = batch.length ? "<h3>CURRENT BATCH</h3>" : "";
             batch.forEach((t, i) => {
-                list.innerHTML += `<div class="batch-card"><div><strong>${t.rblx}</strong> (${t.total}/40) - ${t.status}</div><div style="display:flex; gap:5px;"><button class="t-btn" style="background:var(--fail);" onclick="dqTrainee(${i})">DQ</button><button class="t-btn" style="background:#444;" onclick="batch.splice(${i},1);renderBatch()">X</button></div></div>`;
+                list.innerHTML += `
+                <div class="batch-card">
+                    <div><strong>${t.rblx}</strong> - ${t.total}/40 (${t.status})</div>
+                    <div style="display:flex; gap:5px;">
+                        <button class="t-btn active-red" style="width:auto; background: var(--fail);" onclick="dqTrainee(${i})">DQ</button>
+                        <button class="t-btn active-red" style="width:auto" onclick="batch.splice(${i},1);renderBatch()">REMOVE</button>
+                    </div>
+                </div>`;
             });
             document.getElementById('publish-btn').style.display = batch.length ? 'block' : 'none';
         }
 
         function clearForm() { 
-            ['t-rblx', 't-id', 't-notes'].forEach(id => document.getElementById(id).value = ""); 
-            scores = {}; document.querySelectorAll('.t-btn').forEach(b => b.className = 't-btn'); 
+            ['t-rblx', 't-id', 't-notes', 'note-know', 'note-s1', 'note-s2', 'note-drive'].forEach(id => document.getElementById(id).value = ""); 
+            scores = {}; 
+            document.querySelectorAll('.t-btn').forEach(b => b.className = 't-btn'); 
+            document.querySelectorAll('.conditional-box').forEach(b => b.style.display = 'none'); 
         }
 
         async function postAnn() {
             const time = document.getElementById('ann-time').value;
             const hId = document.getElementById('ann-uid').value;
-            if(!time || !hId) return alert("Details required.");
+            if(!time || !hId) return alert("Time and Trainer ID required.");
             const unix = Math.floor(new Date(time).getTime() / 1000);
-            const body = { content: `<@&${CONFIG.ANNOUNCE_ROLE_ID}>`, embeds: [{ title: "NEW TRAINING", color: 16711935, thumbnail: { url: CONFIG.THUMBNAIL }, image: { url: CONFIG.IMG_ANN }, fields: [{ name: "Trainer", value: `<@${hId}>`, inline: true }, { name: "Time", value: `<t:${unix}:F>` }, { name: "Info", value: document.getElementById('ann-desc').value }] }] };
+
+            const body = { 
+                content: `<@&${CONFIG.ANNOUNCE_ROLE_ID}>`, 
+                embeds: [{ 
+                    title: "NEW TRAINING SESSION", color: 16711935, 
+                    thumbnail: { url: CONFIG.THUMBNAIL },
+                    image: { url: CONFIG.IMG_ANN },
+                    fields: [
+                        { name: "Trainer", value: `<@${hId}>`, inline: true },
+                        { name: "Type", value: document.getElementById('ann-type').value, inline: true },
+                        { name: "Location", value: document.getElementById('ann-loc').value, inline: true },
+                        { name: "Time", value: `<t:${unix}:F> (<t:${unix}:R>)` },
+                        { name: "Description", value: document.getElementById('ann-desc').value }
+                    ],
+                    footer: { text: "Ensure you meet all requirements before joining." }
+                }] 
+            };
             await fetch(CONFIG.WH_ANNOUNCE, { method: 'POST', headers: {'Content-Type': 'application/json'}, body: JSON.stringify(body) });
-            alert("Sent.");
+            alert("Announcement Posted.");
         }
 
         async function postVoiceVerify() {
-            const body = { content: `<@${document.getElementById('v-trainer-uid').value}> <@${document.getElementById('v-trainee-uid').value}>`, embeds: [{ title: "VOICE VERIFICATION", color: 65535, thumbnail: { url: CONFIG.THUMBNAIL }, image: { url: CONFIG.IMG_VV }, fields: [{ name: "User", value: document.getElementById('v-trainee-name').value, inline: true }, { name: "Age", value: document.getElementById('v-age').value, inline: true }] }] };
+            const trId = document.getElementById('v-trainer-uid').value;
+            const tnId = document.getElementById('v-trainee-uid').value;
+            if(!trId || !tnId) return alert("IDs Required.");
+
+            const body = { 
+                content: `<@${trId}> <@${tnId}>`, 
+                embeds: [{ 
+                    title: "VOICE VERIFICATION RESULT", color: 65535, 
+                    thumbnail: { url: CONFIG.THUMBNAIL },
+                    image: { url: CONFIG.IMG_VV },
+                    fields: [
+                        { name: "User", value: document.getElementById('v-trainee-name').value, inline: true },
+                        { name: "Verified Age", value: document.getElementById('v-age').value, inline: true }
+                    ] 
+                }] 
+            };
             await fetch(CONFIG.WH_VOICE, { method: 'POST', headers: {'Content-Type': 'application/json'}, body: JSON.stringify(body) });
-            alert("Sent.");
+            alert("Verification Sent.");
         }
 
         async function publish() {
-            if(!confirm("Are you sure you want to publish this entire batch to Discord?")) return;
             const hId = document.getElementById('h-id').value;
             const pings = `<@${hId}> ` + batch.map(t => `<@${t.id}>`).join(" ");
-            const embeds = batch.map((t, idx) => ({ title: `EVALUATION: ${t.status}`, color: t.status === "PASS" ? 65280 : 16711680, thumbnail: { url: CONFIG.THUMBNAIL }, image: idx === batch.length - 1 ? { url: CONFIG.IMG_RES } : null, fields: [{ name: "Candidate", value: `${t.rblx} (<@${t.id}>)`, inline: true }, { name: "Score", value: `**${t.total}/40**`, inline: true }, { name: "Notes", value: t.notes || "No notes provided." }] }));
-            await fetch(CONFIG.WH_EVALUATION, { method: 'POST', headers: {'Content-Type': 'application/json'}, body: JSON.stringify({ content: pings, embeds }) });
-            alert("Published."); batch = []; renderBatch();
+            
+            const embeds = batch.map((t, idx) => {
+                const fields = [
+                    { name: "Candidate", value: `${t.rblx} (<@${t.id}>)`, inline: true },
+                    { name: "Overall Score", value: `**${t.total}/40**`, inline: true },
+                    { name: "Section Scores", value: `Knowledge: ${t.sec.k}/10\nScene 1: ${t.sec.s1}/10\nScene 2: ${t.sec.s2}/10\nDriving: ${t.sec.d}/10` }
+                ];
+                if(t.notes.k) fields.push({ name: "Knowledge Notes", value: t.notes.k });
+                if(t.notes.s1) fields.push({ name: "Scene 1 Notes", value: t.notes.s1 });
+                if(t.notes.s2) fields.push({ name: "Scene 2 Notes", value: t.notes.s2 });
+                if(t.notes.d) fields.push({ name: "Driving Notes", value: t.notes.d });
+                if(t.notes.ov) fields.push({ name: "Final Summary", value: t.notes.ov });
+
+                return {
+                    title: `TRAINING EVALUATION: ${t.status}`,
+                    color: t.status === "PASS" ? 65280 : 16711680,
+                    thumbnail: { url: CONFIG.THUMBNAIL },
+                    image: idx === batch.length - 1 ? { url: CONFIG.IMG_RES } : null,
+                    fields: fields
+                };
+            });
+
+            await fetch(CONFIG.WH_RESULTS, { method: 'POST', headers: {'Content-Type': 'application/json'}, body: JSON.stringify({ content: pings, embeds }) });
+            alert("Batch Results Published."); batch = []; renderBatch();
         }
     </script>
 </body>
 </html>
+
