@@ -7,17 +7,17 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
     <script>
         const CONFIG = {
-            // PASTE YOUR SEPARATE WEBHOOKS HERE
-            WEBHOOK_ANN: "https://discord.com/api/webhooks/1465632467586121833/Flg-KV08bwIvmjyJsi0YzSvktv4j9tlaz03K0779D7CKhequInbVrKsV2cYmYUD0DTBo",
-            WEBHOOK_RES: "https://discord.com/api/webhooks/1465632467586121833/Flg-KV08bwIvmjyJsi0YzSvktv4j9tlaz03K0779D7CKhequInbVrKsV2cYmYUD0DTBo",
-            WEBHOOK_VV:  "https://discord.com/api/webhooks/1465632467586121833/Flg-KV08bwIvmjyJsi0YzSvktv4j9tlaz03K0779D7CKhequInbVrKsV2cYmYUD0DTBo",
+            // PASTE YOUR WEBHOOKS HERE
+            WEBHOOK_ANN: "https://discord.com/api/webhooks/1465632467586121833/Flg-KV08bwIvmjyJsi0YzSvktv4j9tlaz03K0779D7CKhequInbVrKsV2cYmYUD0DTBo", 
+            WEBHOOK_RES: "https://discord.com/api/webhooks/1465632467586121833/Flg-KV08bwIvmjyJsi0YzSvktv4j9tlaz03K0779D7CKhequInbVrKsV2cYmYUD0DTBo", 
+            WEBHOOK_VV:  "https://discord.com/api/webhooks/1465632467586121833/Flg-KV08bwIvmjyJsi0YzSvktv4j9tlaz03K0779D7CKhequInbVrKsV2cYmYUD0DTBo", 
             
             ANNOUNCE_ROLE_ID: "0",
             ACCESS_KEY: "Merse noob",
             THUMBNAIL: "https://cdn.discordapp.com/attachments/1460325955963846819/1465253303234330677/Hrbrp.png?ex=69786efa&is=69771d7a&hm=34283654c5b9e97f2a5ec16a212fddb316e7fb676d16c12f7c61d2efc9a902ba&",
             IMG_ANN: "https://cdn.discordapp.com/attachments/1434075893868920852/1453697838994296855/HRPBRP_Announcement.png",
             IMG_RES: "https://media.discordapp.net/attachments/1460325955963846819/1464990348416909536/High_Rock_Banners_31.png?ex=697822d5&is=6976d155&hm=3521853af6005b6a809e4badeb16727dd6e387b5c5949a73be2b9739d7e857f6&=&format=webp&quality=lossless&width=1214&height=363",
-            IMG_VV: "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAJCAYAAABT2S4KAAAEvElEQVR4AQCBAH7/AHc9WP93PVj/dj5Y/3Q+Wf9yPln/cD9a/20/W/9rQFz/Z0Bd/2RBXv9hQV//XUJg/1pCYf9XQ2L/U0Ni/1BDY/9OQ2P/S0Nj/0lDY/9HQ2P/RkNj/0RDY/9DQmL/QkJi/0JBYf9BQWH/QUFg/0FAYP9BQF//QUBf/0FAX/9BP17/AIEAfv8Afz1S/349Uv99PVL/fD5T/3o+VP94PlT/dT9V/3I/Vv9vQFf/bEBY/2hBWf9lQVr/YUJb/15CXP9bQ1z/WENd/1VDXf9TQ13/UUNd/09DXf9NQl3/TEJc/0tCXP9KQVv/SkFb/0lAWv9JQFr/SUBZ/0g/Wf9IP1j/SD9Y/0g/WP8AgQB+/wCLPEn/ijxJ/4k9Sf+IPUr/hj1L/4M+S/+BPkz/fj9N/3s/Tv93QE//dEBQ/3FBUf9tQVH/akJS/2dCU/9kQlP/YkJT/19CU/9dQlP/W0JT/1pCU/9YQVL/V0FS/1dBUf9WQFH/VkBQ/1U/T/9VP0//VT9O/1U+Tv9VPk7/VT5O/wCBAH7/AJY8QP+WPEH/lTxB/5M9Qf+RPUL/jz5D/4w+RP+KP0T/hj9F/4NARv+AQEf/fUFI/3lBSP92QUn/c0JJ/3BCSv9uQkr/a0JK/2lCSv9nQkn/ZkFJ/2VBSf9kQUj/Y0BH/2JAR/9iP0b/Yj9F/2E/Rf9hPkT/YT5E/2E+RP9hPkP/AIEAfv8AnT08/509PP+cPT3/mj49/5g+Pv+WPj7/kz8//5E/QP+OQEH/ikBB/4dBQv+EQUP/gUJD/31CRP96QkT/eENE/3VDRP9zQ0T/cUNE/29CRP9uQkP/bEJD/2tBQv9rQUH/akFB/2pAQP9qQD//aT8+/2k/Pv9pPz7/aT89/2k/Pf8AgQB+/wCdPz3/nT89/5w/Pv+bPz7/mUA//5dAP/+UQUD/kUFB/45CQf+LQkL/iEND/4VDQ/+BRET/fkRE/3tERf95REX/dkRF/3RERP9yRET/cERE/29EQ/9uQ0L/bUNC/2xDQf9sQkD/a0I//2tBPv9rQT7/a0E9/2tAPf9rQDz/a0A8/wCBAH7/AJhBQ/+YQUP/l0FD/5ZCRP+UQkT/kkJF/49DRf+MQ0b/iURH/4ZER/+DRUj/gEVJ/31GSf96Rkn/d0ZJ/3RHSf9yR0n/b0dJ/21GSf9sRkj/akZH/2lGR/9oRUb/aEVF/2dERP9nREP/Z0NC/2dDQv9nQ0H/Z0NB/2dCQP9nQkD/AIEAfv8AkkNK/5FDSv+QREr/j0RL/41ES/+LRUz/iEVM/4VGTf+CRk7/f0dO/3xHT/95SE//dkhQ/3NIUP9wSVD/bUlQ/2tJUP9pSU//Z0lP/2VITv9kSE3/Y0hN/2JHTP9hR0v/YUZK/2FGSf9gRkj/YEVH/2BFR/9gRUb/YERG/2BERv8BgQB+/wCNRU//jEVP/4tFT/+KRU//iEZQ/4ZGUP+DRlH/gUdS/35IUv97SFP/d0lT/3RJVP9xSVT/bkpU/2tKVP9pSlT/ZkpU/2RKVP9iSlP/YUpS/19JUv9eSVH/XUlQ/11IT/9cSE7/XEdN/1xHTP9cR0v/XEZL/1xGSv9cRkr/XEZK/7p1PCVMGGmNAAAAAElFTkSuQmCC"
+            IMG_VV: "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAJCAYAAABT2S4KAAAEvElEQVR4AQCBAH7/AHc9WP93PVj/dj5Y/3Q+Wf9yPln/cD9a/20/W/9rQFz/Z0Bd/2RBXv9hQV//XUJg/1pCYf9XQ2L/U0Ni/1BDY/9OQ2P/S0Nj/0lDY/9HQ2P/RkNj/0RDY/9DQmL/QkJi/0JBYf9BQWH/QUFg/0FAYP9BQF//QUBf/0FAX/9BP17/AIEAfv8Afz1S/349Uv99PVL/fD5T/3o+VP94PlT/dT9V/3I/Vv9vQFf/bEBY/2hBWf9lQVr/YUJb/15CXP9bQ1z/WENd/1VDXf9TQ13/UUNd/09DXf9NQl3/TEJc/0tCXP9KQVv/SkFb/0lAWv9JQFr/SUBZ/0g/Wf9IP1j/SD9Y/0g/WP8AgQB+/wCLPEn/ijxJ/4k9Sf+IPUr/hj1L/4M+S/+BPkz/fj9N/3s/Tv93QE//dEBQ/3FBUf9tQVH/akJS/2dCU/9kQlP/YkJT/19CU/9dQlP/W0JT/1pCU/9YQVL/V0FS/1dBUf9WQFH/VkBQ/1U/T/9VP0//VT9O/1U+Tv9VPk7/VT5O/wCBAH7/AJY8QP+WPEH/lTxB/5M9Qf+RPUL/jz5D/4w+RP+KP0T/hj9F/4NARv+AQEf/fUFI/3lBSP92QUn/c0JJ/3BCSv9uQkr/a0JK/2lCSv9nQkn/ZkFJ/2VBSf9kQUj/Y0BH/2JAR/9iP0b/Yj9F/2E/Rf9hPkT/YT5E/2E+RP9hPkP/AIEAfv8AnT08/509PP+cPT3/mj49/5g+Pv+WPj7/kz8//5E/QP+OQEH/ikBB/4dBQv+EQUP/gUJD/31CRP96QkT/eENE/3VDRP9zQ0T/cUNE/29CRP9uQkP/bEJD/2tBQv9rQUH/akFB/2pAQP9qQD//aT8+/2k/Pv9pPz7/aT89/2k/Pf8AgQB+/wCdPz3/nT89/5w/Pv+bPz7/mUA//5dAP/+UQUD/kUFB/45CQf+LQkL/iEND/4VDQ/+BRET/fkRE/3tERf95REX/dkRF/3RERP9yRET/cERE/29EQ/9uQ0L/bUNC/2xDQf9sQkD/a0I//2tBPv9rQT7/a0E9/2tAPf9rQDz/a0A8/wCBAH7/AJYBQ/+YQUP/l0FD/5ZCRP+UQkT/kkJF/49DRf+MQ0b/iURH/4ZER/+DRUj/gEVJ/31GSf96Rkn/d0ZJ/3RHSf9yR0n/b0dJ/21GSf9sRkj/akZH/2lGR/9oRUb/aEVF/2dERP9nREP/Z0NC/2dDQv9nQ0H/Z0NB/2dCQP9nQkD/AIEAfv8AkkNK/5FDSv+QREr/j0RL/41ES/+LRUz/iEVM/4VGTf+CRk7/f0dO/3xHT/95SE//dkhQ/3NIUP9wSVD/bUlQ/2tJUP9pSU//Z0lP/2VITv9kSE3/Y0hN/2JHTP9hR0v/YUZK/2FGSf9gRkj/YEVH/2BFR/9gRUb/YERG/2BERv8BgQB+/wCNRU//jEVP/4tFT/+KRU//iEZQ/4ZGUP+DRlH/gUdS/35IUv97SFP/d0lT/3RJVP9xSVT/bkpU/2tKVP9pSlT/ZkpU/2RKVP9iSlP/YUpS/19JUv9eSVH/XUlQ/11IT/9cSE7/XEdN/1xHTP9cR0v/XEZL/1xGSv9cRkr/XEZK/7p1PCVMGGmNAAAAAElFTkSuQmCC"
         };
     </script>
     <style>
@@ -297,15 +297,14 @@
             alert("Announcement Posted.");
         }
 
-        // --- FIXED VOICE VERIFICATION FUNCTION ---
         async function postVoiceVerify() {
             const trId = document.getElementById('v-trainer-uid').value.trim();
             const tnId = document.getElementById('v-trainee-uid').value.trim();
-            const robloxName = document.getElementById('v-trainee-name').value.trim() || "Not Provided";
+            const robloxName = document.getElementById('v-trainee-name').value.trim() || "N/A";
             const ageCat = document.getElementById('v-age').value;
 
             if(!trId || !tnId) {
-                return alert("Both Trainer and Trainee Discord IDs are required.");
+                return alert("IDs Required.");
             }
 
             const body = { 
@@ -318,8 +317,7 @@
                     fields: [
                         { name: "User", value: robloxName, inline: true },
                         { name: "Verified Age", value: ageCat, inline: true }
-                    ],
-                    footer: { text: "HRBRP | Official Voice Verification" }
+                    ] 
                 }] 
             };
 
@@ -333,13 +331,13 @@
                 if (response.ok) {
                     alert("Verification Sent.");
                 } else {
-                    const errorMsg = await response.text();
-                    console.error("Discord Error:", errorMsg);
-                    alert("Failed to send. Check console (F12) for details.");
+                    const errorJson = await response.json();
+                    console.error("Discord Error Details:", errorJson);
+                    alert("Discord Error: " + JSON.stringify(errorJson));
                 }
             } catch (err) {
-                console.error("Network Error:", err);
-                alert("Network error. Make sure your Webhook URL is correct.");
+                console.error("Fetch Error:", err);
+                alert("Connection failed. Check Webhook URL.");
             }
         }
 
